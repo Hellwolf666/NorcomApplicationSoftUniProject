@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/commons::head">
+</head>
+<body>
+<header th:replace="fragments/commons::nav">
+</header>
+    <main role="main" >
+        <div class="container" style="margin-top: 25px; margin-bottom: 25px;">
+            <div class="main-body">
+                <div class="row gutters-sm">
+                    <div class="col-md-3 mb-2">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="images/male.png" alt="Avatar" class="avatar">
+                            <div class="mt-3">
+                                <h4>John Doe</h4>
+                            </div>
+                            <div class="mt-3">
+                                <h6>Вашият клиентски номер:</h6>
+                            </div>
+                            <a href="url">Смяна на паролата</a>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Email</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        fip@jukmuh.al
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Mobile</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        (320) 380-4539
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Address</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        Bay Area, San Francisco, CA
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <a class="btn btn-info " target="__blank"
+                                            href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </main>
+    <div th:replace="fragments/commons::footer" class="footer" id="footer">
+    </div>
+</body>
+
+</html>

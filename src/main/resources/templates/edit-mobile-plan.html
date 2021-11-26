@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/commons::head">
+</head>
+<body>
+<header th:replace="fragments/commons::nav">
+</header>
+    <main role="main">
+        <form class="text-center">
+            <h1>Редактирай текущ план</h1>
+            <label> Интернет: </label>
+            <input type="text" name="name" size="15" /> <br> <br>
+            <label> Име на плана: </label>
+            <input type="text" name="internetCntry" size="15" /> <br> <br>
+            <label> Минути за разговори: </label>
+            <input type="text" name="callminsCntry" size="15" /> <br> <br>
+            <label> SMS и MMS: </label>
+            <input type="text" name="smsandmmsCntry" size="15" /> <br> <br>
+            <label> Интернет в ЕС: </label>
+            <input type="text" name="internetEU" size="15" /> <br> <br>
+            <label> Минути за разговори в ЕС: </label>
+            <input type="text" name="callminsEU" size="15" /> <br> <br>
+            <label> SMS и MMS в ЕС: </label>
+            <input type="text" name="smsandmmsEU" size="15" /> <br> <br>
+            <label> Допълителни услуги в ЕС: </label>
+            <input type="text" name="additionals" size="50" /> <br> <br>
+        </form>
+    </main>
+        <div th:replace="fragments/commons::footer" class="footer" id="footer">
+    </div>
+</body>
+
+</html>
