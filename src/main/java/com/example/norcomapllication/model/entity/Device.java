@@ -1,7 +1,9 @@
 package com.example.norcomapllication.model.entity;
 
+import com.example.norcomapllication.model.entity.enums.MobilePlanType;
+import com.example.norcomapllication.model.entity.enums.OperationSystemType;
+
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -31,7 +33,7 @@ public class Device extends BaseEntity{
     public String speaker;
     public String headphoneSlot;
     public String batteryCapacity;
-    public Admin admin;
+    public User user;
     public Set<Order> orders;
 
     public Device() {
@@ -229,12 +231,12 @@ public class Device extends BaseEntity{
         this.batteryCapacity = batteryCapacity;
     }
     @ManyToOne(fetch = FetchType.EAGER)
-    public Admin getAdmin() {
-        return admin;
+    public User getUser() {
+        return user;
     }
 
-    public void setAdmin(Admin admin) {
-        this.admin = admin;
+    public void setUser(User user) {
+        this.user = user;
     }
     @OneToMany(mappedBy = "device")
     public Set<Order> getOrders() {

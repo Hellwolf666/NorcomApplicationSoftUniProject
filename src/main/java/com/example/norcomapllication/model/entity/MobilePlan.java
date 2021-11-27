@@ -1,7 +1,8 @@
 package com.example.norcomapllication.model.entity;
 
+import com.example.norcomapllication.model.entity.enums.MobilePlanType;
+
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity

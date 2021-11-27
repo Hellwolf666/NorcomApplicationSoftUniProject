@@ -6,36 +6,28 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User  extends BaseEntity{
-    public String firstName;
-    public String lastName;
+    public String fullName;
     public String address;
     public String email;
     public String gender;
     public String registerDate;
-    public String clientNumber;
+    public String username;
     public String password;
-    public Admin admin;
     public Set<Order> order;
+    private Set<Role> roles;
+    private Set<Device> devices;
 
     public User() {
     }
     @Column(unique = true,nullable = false)
-    public String getFirstName() {
-        return firstName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-    @Column(unique = true,nullable = false)
-
-    public String getLastName() {
-        return lastName;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
     @Column(nullable = false)
 
     public String getAddress() {
@@ -70,13 +62,14 @@ public class User  extends BaseEntity{
         this.registerDate = registerDate;
     }
     @Column(unique = true,nullable = false)
-    public String getClientNumber() {
-        return clientNumber;
+    public String getUsername() {
+        return username;
     }
 
-    public void setClientNumber(String clientNumber) {
-        this.clientNumber = clientNumber;
+    public void setUsername(String username) {
+        this.username = username;
     }
+
     @Column(nullable = false)
     public String getPassword() {
         return password;
@@ -85,14 +78,7 @@ public class User  extends BaseEntity{
     public void setPassword(String password) {
         this.password = password;
     }
-    @ManyToOne(fetch = FetchType.EAGER)
-    public Admin getAdmin() {
-        return admin;
-    }
 
-    public void setAdmin(Admin admin) {
-        this.admin = admin;
-    }
     @OneToMany(mappedBy = "user")
     public Set<Order> getOrder() {
         return order;
@@ -100,5 +86,25 @@ public class User  extends BaseEntity{
 
     public void setOrder(Set<Order> order) {
         this.order = order;
+    }
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+    @OneToMany
+    public Set<Device> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(Set<Device> devices) {
+        this.devices = devices;
     }
 }

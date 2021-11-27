@@ -1,14 +1,12 @@
 package com.example.norcomapllication.model.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "orders")
 public class Order  extends BaseEntity{
     public User user;
+    public String phoneNumber;
     public Device device;
     public MobilePlan mobilePlan;
 
@@ -20,6 +18,15 @@ public class Order  extends BaseEntity{
     public void setUser(User user) {
         this.user = user;
     }
+    @Column(name = "phone_number")
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     @ManyToOne(fetch = FetchType.EAGER)
     public Device getDevice() {
         return device;
@@ -36,4 +43,5 @@ public class Order  extends BaseEntity{
     public void setMobilePlan(MobilePlan mobilePlan) {
         this.mobilePlan = mobilePlan;
     }
+
 }

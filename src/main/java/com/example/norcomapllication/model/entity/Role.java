@@ -1,38 +1,34 @@
 package com.example.norcomapllication.model.entity;
 
+import com.example.norcomapllication.model.entity.enums.RoleEnumClass;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "roles")
 public class Role extends BaseEntity {
-    public RoleEnumClass roleEnumClass;
-    public User user;
-    public Admin admin;
+    public RoleEnumClass role;
+    public Set<User> users;
 
     public Role() {
     }
+
     @Enumerated(EnumType.STRING)
-    public RoleEnumClass getRoleEnumClass() {
-        return roleEnumClass;
+    public RoleEnumClass getRole() {
+        return role;
     }
 
-    public void setRoleEnumClass(RoleEnumClass roleEnumClass) {
-        this.roleEnumClass = roleEnumClass;
+    public Role setRole(RoleEnumClass roleEnumClass) {
+        this.role = roleEnumClass;
+        return this;
     }
-    @OneToOne
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-    @OneToOne
-    public Admin getAdmin() {
-        return admin;
+    @ManyToMany(mappedBy = "roles")
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public void setAdmin(Admin admin) {
-        this.admin = admin;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }
