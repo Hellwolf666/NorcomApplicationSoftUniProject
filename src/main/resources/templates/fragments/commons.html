@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head th:fragment="head">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../static/css/mystyle.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+<!--    <link th:href="@{css/mystyle.css}" rel="stylesheet" media="screen"/>-->
+    <link rel="stylesheet" href="/css/reset-css.css"/>
+    <link rel="stylesheet" href="/css/mystyle.css"/>
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css}"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Norcom Application</title>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -33,31 +35,40 @@
 <body class="body-main">
 <header th:fragment="nav">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
-        <a class="navbar-brand" href=""><img th:src="@{/images/logo.png}" alt="alternative"/></a>
+        <a class="navbar-brand" href="/"><img th:src="@{/images/logo.png}" alt="alternative"/></a>
+
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/devices">Устройства</a>
+                    <a class="nav-link" th:href="@{/devices}">Устройства</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/mobile-plans">Мобилни планове</a>
+                    <a class="nav-link" th:href="@{/mobile-plans}">Мобилни планове</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/services">Услуги</a>
+                    <a class="nav-link" th:href="@{/services}">Услуги</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/contacts">Контакти</a>
+                    <a class="nav-link" th:href="@{/contacts}">Контакти</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/users/login">Вход</a>
+                    <a class="nav-link" th:href="@{/users/login}">Вход</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/register-form">Регистрация</a>
+                    <a class="nav-link" th:href="@{/users/register}">Регистрация</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/users/profile">Профил</a>
+                    <a class="nav-link" th:href="@{/users/profile}">Профил</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <div class="form-inline my-2 my-lg-0 px-3">
+                        <div class="text-white">Здравейте, <th:block sec:authentication="fullName"></th:block>!</div>
+                        <form th:action="@{/users/logout}" th:method="post">
+                            <input class="btn btn-link nav-link" type="submit" value="Logout">
+                        </form>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -69,10 +80,10 @@
             <section class="mb-4">
                 <h5>Бързи линкове:</h5>
                 <ul class="list-unstyled mb-0">
-                    <li><a href="/services" class="text-muted">Услуги</a></li>
-                    <li><a href="/devices" class="text-muted">Устройства</a></li>
-                    <li><a href="/contacts" class="text-muted">Контакти</a></li>
-                    <li><a href="/mobile-plans" class="text-muted">Планове</a></li>
+                    <li><a th:href="@{/services}" class="text-muted">Услуги</a></li>
+                    <li><a th:href="@{/devices}" class="text-muted">Устройства</a></li>
+                    <li><a th:href="@{/contacts}" class="text-muted">Контакти</a></li>
+                    <li><a th:href="@{/mobile-plans}" class="text-muted">Планове</a></li>
                 </ul>
             </section>
         </div>

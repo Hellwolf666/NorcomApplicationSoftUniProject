@@ -31,18 +31,17 @@ public class UserRegisterController {
 
     @GetMapping("/register")
     public String register() {
-        return "/register";
+        return "register";
     }
-    @PostMapping("register")
+    @PostMapping("/register")
     public String registerConfirm(@Valid UserRegisterBindingModel usermodel, BindingResult bindingResult, RedirectAttributes redirectAttributes){
         if(bindingResult.hasErrors() || !usermodel.getPassword().equals(usermodel.getConfirmPassword())) {
             redirectAttributes.addFlashAttribute("userModel",usermodel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userModel",bindingResult);
-            return "redirect:/users/register";
+            return "redirect:/register";
         }
         UserRegisterServiceModel serviceModel = modelMapper.map(usermodel,UserRegisterServiceModel.class);
         userService.registerAndLoginUser(serviceModel);
-        return "";
+        return "redirect:/";
     }
 }
-//TODO register.html не намира полетата

@@ -17,8 +17,9 @@ public class Service extends BaseEntity{
         return name;
     }
 
-    public void setName(String name) {
+    public Service setName(String name) {
         this.name = name;
+        return this;
     }
     @ManyToMany
     @JoinTable(name = "services_mobile_plans",
@@ -27,7 +28,8 @@ public class Service extends BaseEntity{
         return mobilePlans;
     }
 
-    public void setMobilePlans(List<MobilePlan> mobilePlans) {
+    public Service setMobilePlans(List<MobilePlan> mobilePlans) {
         this.mobilePlans = mobilePlans;
+        return this;
     }
 }

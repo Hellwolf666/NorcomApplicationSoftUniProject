@@ -2,8 +2,10 @@ package com.example.norcomapllication.init;
 
 import com.example.norcomapllication.service.UserService;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
-public class DBInit  implements CommandLineRunner {
+@Component
+public class DBInit implements CommandLineRunner {
     private final UserService userService;
 
     public DBInit(UserService userService) {
@@ -12,7 +14,7 @@ public class DBInit  implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-    userService.initUserAndRoles();
+    userService.initUsers();
     }
 
 }

@@ -1,6 +1,9 @@
 package com.example.norcomapllication.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -14,7 +17,7 @@ public class User  extends BaseEntity{
     public String username;
     public String password;
     public Set<Order> order;
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
     private Set<Device> devices;
 
     public User() {
@@ -24,8 +27,9 @@ public class User  extends BaseEntity{
         return fullName;
     }
 
-    public void setFullName(String fullName) {
+    public User setFullName(String fullName) {
         this.fullName = fullName;
+        return this;
     }
 
     @Column(nullable = false)
@@ -34,40 +38,50 @@ public class User  extends BaseEntity{
         return address;
     }
 
-    public void setAddress(String address) {
+    public User setAddress(String address) {
         this.address = address;
+        return this;
+
     }
     @Column(unique = true,nullable = false)
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public User setEmail(String email) {
         this.email = email;
+        return this;
+
     }
     @Column(nullable = false)
     public String getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public User setGender(String gender) {
         this.gender = gender;
+        return this;
+
     }
     @Column(nullable = false)
     public String getRegisterDate() {
         return registerDate;
     }
 
-    public void setRegisterDate(String registerDate) {
+    public User setRegisterDate(String registerDate) {
         this.registerDate = registerDate;
+        return this;
+
     }
     @Column(unique = true,nullable = false)
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public User setUsername(String username) {
         this.username = username;
+        return this;
+
     }
 
     @Column(nullable = false)
@@ -75,8 +89,10 @@ public class User  extends BaseEntity{
         return password;
     }
 
-    public void setPassword(String password) {
+    public User setPassword(String password) {
         this.password = password;
+        return this;
+
     }
 
     @OneToMany(mappedBy = "user")
@@ -84,27 +100,29 @@ public class User  extends BaseEntity{
         return order;
     }
 
-    public void setOrder(Set<Order> order) {
+    public User setOrder(Set<Order> order) {
         this.order = order;
+        return this;
+
     }
-    @ManyToMany
-    @JoinTable(
-            name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ManyToMany(fetch = FetchType.EAGER)
     public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public User setRoles(Set<Role> roles) {
         this.roles = roles;
+        return this;
+
     }
     @OneToMany
     public Set<Device> getDevices() {
         return devices;
     }
 
-    public void setDevices(Set<Device> devices) {
+    public User setDevices(Set<Device> devices) {
         this.devices = devices;
+        return this;
+
     }
 }

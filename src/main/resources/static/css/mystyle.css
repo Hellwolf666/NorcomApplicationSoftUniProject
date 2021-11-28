@@ -13,15 +13,14 @@ color: #04C8D8 !important;
 }
 
 .tab-content {
-	padding: 5%;
-	padding-left: 40%;
+    padding: 5% 5% 5% 40%;
 }
 
 main {
     margin: 25px;
 }
 #footer {
-    position: relative;
+    position: absolute;
     bottom: 0;
     width: 100%;
 }

@@ -25,8 +25,9 @@ public class MobilePlan extends BaseEntity {
         return name;
     }
 
-    public void setName(String name) {
+    public MobilePlan setName(String name) {
         this.name = name;
+        return this;
     }
 
     @Enumerated(EnumType.STRING)
@@ -34,71 +35,80 @@ public class MobilePlan extends BaseEntity {
         return mobilePlanType;
     }
 
-    public void setMobilePlanType(MobilePlanType mobilePlanType) {
+    public MobilePlan setMobilePlanType(MobilePlanType mobilePlanType) {
         this.mobilePlanType = mobilePlanType;
+        return this;
     }
     @Column(nullable = false)
     public String getInternet() {
         return internet;
     }
 
-    public void setInternet(String internet) {
+    public MobilePlan setInternet(String internet) {
         this.internet = internet;
+        return this;
     }
     @Column(nullable = false)
     public String getMinutes() {
         return minutes;
     }
 
-    public void setMinutes(String minutes) {
+    public MobilePlan setMinutes(String minutes) {
         this.minutes = minutes;
+        return this;
     }
     @Column(nullable = false)
     public String getSms() {
         return sms;
     }
 
-    public void setSms(String sms) {
+    public MobilePlan setSms(String sms) {
         this.sms = sms;
+        return this;
     }
     @Column(nullable = false)
     public String getInternetEU() {
         return internetEU;
     }
 
-    public void setInternetEU(String internetEU) {
+    public MobilePlan setInternetEU(String internetEU) {
         this.internetEU = internetEU;
+        return this;
     }
     @Column(nullable = false)
     public String getMinutesEU() {
         return minutesEU;
     }
 
-    public void setMinutesEU(String minutesEU) {
+    public MobilePlan setMinutesEU(String minutesEU) {
         this.minutesEU = minutesEU;
+        return this;
     }
     @Column(nullable = false)
     public String getSmsEU() {
         return smsEU;
     }
 
-    public void setSmsEU(String smsEU) {
+    public MobilePlan setSmsEU(String smsEU) {
         this.smsEU = smsEU;
+        return this;
     }
     @ManyToMany(mappedBy = "mobilePlans")
     public Set<Service> getServices() {
         return services;
     }
 
-    public void setServices(Set<Service> services) {
+    public MobilePlan setServices(Set<Service> services) {
         this.services = services;
+        return this;
     }
     @OneToMany(mappedBy = "mobilePlan")
     public Set<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(Set<Order> orders) {
+    public MobilePlan setOrders(Set<Order> orders) {
         this.orders = orders;
+        return this;
     }
 }

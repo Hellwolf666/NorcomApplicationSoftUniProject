@@ -15,16 +15,19 @@ public class Order  extends BaseEntity{
         return user;
     }
 
-    public void setUser(User user) {
+    public Order setUser(User user) {
         this.user = user;
+        return this;
     }
     @Column(name = "phone_number")
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public Order setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+        return this;
+
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -32,16 +35,20 @@ public class Order  extends BaseEntity{
         return device;
     }
 
-    public void setDevice(Device device) {
+    public Order setDevice(Device device) {
         this.device = device;
+        return this;
+
     }
     @ManyToOne(fetch = FetchType.EAGER)
     public MobilePlan getMobilePlan() {
         return mobilePlan;
     }
 
-    public void setMobilePlan(MobilePlan mobilePlan) {
+    public Order setMobilePlan(MobilePlan mobilePlan) {
         this.mobilePlan = mobilePlan;
+        return this;
+
     }
 
 }
