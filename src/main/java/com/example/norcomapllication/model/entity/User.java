@@ -1,6 +1,7 @@
 package com.example.norcomapllication.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -13,7 +14,6 @@ public class User  extends BaseEntity{
     public String address;
     public String email;
     public String gender;
-    public String registerDate;
     public String username;
     public String password;
     public Set<Order> order;
@@ -63,16 +63,7 @@ public class User  extends BaseEntity{
         return this;
 
     }
-    @Column(nullable = false)
-    public String getRegisterDate() {
-        return registerDate;
-    }
 
-    public User setRegisterDate(String registerDate) {
-        this.registerDate = registerDate;
-        return this;
-
-    }
     @Column(unique = true,nullable = false)
     public String getUsername() {
         return username;

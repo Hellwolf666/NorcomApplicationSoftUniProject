@@ -15,12 +15,11 @@ public class UserRegisterBindingModel {
     public String confirmPassword;
     public String address;
     public String gender;
-    public String registerDate;
 
     public UserRegisterBindingModel() {
     }
-
-    @Size(min = 2,max = 35)
+//    @NotNull
+//    @Size(min = 2,max = 35)
     public String getFullName() {
         return fullName;
     }
@@ -29,8 +28,9 @@ public class UserRegisterBindingModel {
         this.fullName = fullName;
         return this;
     }
-    @Email
-    @Size(min = 9 ,max=40)
+//    @Email
+//    @NotNull
+//   @Size(min = 9 ,max=40)
     public String getEmail() {
         return email;
     }
@@ -40,8 +40,8 @@ public class UserRegisterBindingModel {
         return this;
 
     }
-    @NotBlank
-    @Size(min=2,max = 35)
+//    @NotBlank
+//    @Size(min=2,max = 35)
     public String getUsername() {
         return username;
     }
@@ -51,7 +51,8 @@ public class UserRegisterBindingModel {
         return this;
 
     }
-    @Size(min=5, max=15)
+//    @NotNull
+//    @Size(min=5, max=15)
     public String getPassword() {
         return password;
     }
@@ -60,7 +61,8 @@ public class UserRegisterBindingModel {
         this.password = password;
         return this;
     }
-    @Size(min=5, max=15)
+//    @NotNull
+//    @Size(min=5, max=15)
     public String getConfirmPassword() {
         return confirmPassword;
     }
@@ -69,7 +71,7 @@ public class UserRegisterBindingModel {
         this.confirmPassword = confirmPassword;
         return this;
     }
-    @NotNull
+//    @NotNull
     public String getAddress() {
         return address;
     }
@@ -77,7 +79,7 @@ public class UserRegisterBindingModel {
     public void setAddress(String address) {
         this.address = address;
     }
-    @NotBlank
+//    @NotBlank
     public String getGender() {
         return gender;
     }
@@ -85,12 +87,5 @@ public class UserRegisterBindingModel {
     public void setGender(String gender) {
         this.gender = gender;
     }
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    public String getRegisterDate() {
-        return registerDate;
-    }
 
-    public void setRegisterDate(String registerDate) {
-        this.registerDate = registerDate;
-    }
 }

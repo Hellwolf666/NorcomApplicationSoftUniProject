@@ -7,7 +7,6 @@ public class UserRegisterServiceModel {
     public String address;
     public String email;
     public String gender;
-    public String registerDate;
 
     public String getFullName() {
         return fullName;
@@ -64,11 +63,4 @@ public class UserRegisterServiceModel {
         this.gender = gender;
     }
 
-    public String getRegisterDate() {
-        return registerDate;
-    }
-
-    public void setRegisterDate(String registerDate) {
-        this.registerDate = registerDate;
-    }
 }

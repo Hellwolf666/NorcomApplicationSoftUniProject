@@ -20,7 +20,7 @@ main {
     margin: 25px;
 }
 #footer {
-    position: absolute;
+    position: relative;
     bottom: 0;
     width: 100%;
 }

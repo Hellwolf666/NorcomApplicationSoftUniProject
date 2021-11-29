@@ -4,6 +4,7 @@ import com.example.norcomapllication.model.entity.enums.MobilePlanType;
 import com.example.norcomapllication.model.entity.enums.OperationSystemType;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
@@ -15,7 +16,7 @@ public class Device extends BaseEntity{
     public String fourthImageUrl;
     public String fifthImageUrl;
     public String name;
-    public Double price;
+    public BigDecimal price;
     public MobilePlanType type;
     public OperationSystemType operationSystem;
     public String processor;
@@ -93,14 +94,15 @@ public class Device extends BaseEntity{
         return this;
     }
     @Column(nullable = false)
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public Device setPrice(Double price) {
+    public Device setPrice(BigDecimal price) {
         this.price = price;
         return this;
     }
+
     @Enumerated(EnumType.STRING)
     public MobilePlanType getType() {
         return type;

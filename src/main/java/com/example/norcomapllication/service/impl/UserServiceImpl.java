@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -32,7 +31,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void initUsers() {
+    public void initUsersAndRoles() {
+        initializeRoles();
         initializeUsers();
     }
 
@@ -40,6 +40,17 @@ public class UserServiceImpl implements UserService {
     public boolean isFreeUsername(String username) {
         return userRepository.findByUsernameIgnoreCase(username).isEmpty();
 
+    }
+    private void initializeRoles() {
+        if(roleRepository.count() == 0) {
+            Role admin = new Role();
+            admin.setRole(RoleEnumClass.ADMIN);
+
+            Role user = new Role();
+            user.setRole(RoleEnumClass.USER);
+
+            roleRepository.saveAll(Set.of(admin,user));
+        }
     }
 
     private void initializeUsers() {
@@ -55,7 +66,6 @@ public class UserServiceImpl implements UserService {
             admin.setAddress("st.Rezbarska 69");
             admin.setEmail("adminovk@gmail.com");
             admin.setGender("male");
-            admin.setRegisterDate("2021/27/11");
             admin.setRoles(Set.of(adminRole, userRole));
             userRepository.save(admin);
 
@@ -66,7 +76,6 @@ public class UserServiceImpl implements UserService {
             user.setAddress("st.Stamboliiski 47");
             user.setEmail("userovt@gmail.com");
             user.setGender("male");
-            user.setRegisterDate("2021/27/11");
             user.setRoles(Set.of(adminRole, userRole));
             userRepository.save(user);
 
@@ -77,15 +86,14 @@ public class UserServiceImpl implements UserService {
     public void registerAndLoginUser(UserRegisterServiceModel userRegisterServiceModel) {
         Role role = roleRepository.findByRole(RoleEnumClass.USER);
         User newUser = new User();
-        newUser.setFullName(userRegisterServiceModel.getFullName());
-        newUser.setUsername(userRegisterServiceModel.getUsername());
-        newUser.setPassword(passwordEncoder.encode(userRegisterServiceModel.getPassword()));
-        newUser.setAddress(userRegisterServiceModel.getAddress());
-        newUser.setEmail(userRegisterServiceModel.getEmail());
-        newUser.setGender(userRegisterServiceModel.getGender());
-        newUser.setRegisterDate(userRegisterServiceModel.getRegisterDate());
-        newUser.setRoles(Set.of(role));
-        newUser = userRepository.save(newUser);
+            newUser.setFullName(userRegisterServiceModel.getFullName())
+                    .setAddress(userRegisterServiceModel.getAddress())
+                    .setEmail(userRegisterServiceModel.getEmail())
+                    .setGender(userRegisterServiceModel.getGender())
+                    .setUsername(userRegisterServiceModel.getUsername())
+                    .setPassword(passwordEncoder.encode(userRegisterServiceModel.getPassword()))
+                    .setRoles(Set.of(role));
+            newUser = userRepository.save(newUser);
 
         UserDetails principal = norcomUserService.loadUserByUsername(newUser.getUsername());
         Authentication authentication = new UsernamePasswordAuthenticationToken(

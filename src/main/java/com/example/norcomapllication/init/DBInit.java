@@ -14,7 +14,7 @@ public class DBInit implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-    userService.initUsers();
+    userService.initUsersAndRoles();
     }
 
 }

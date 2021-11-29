@@ -6,7 +6,9 @@ public interface UserService {
 
     void registerAndLoginUser(UserRegisterServiceModel userRegisterServiceModel);
 
-    void initUsers();
+    void initUsersAndRoles();
 
     boolean isFreeUsername(String username);
+
+
 }
