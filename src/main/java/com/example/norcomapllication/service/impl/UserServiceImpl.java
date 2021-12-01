@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -41,6 +42,12 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsernameIgnoreCase(username).isEmpty();
 
     }
+
+    @Override
+    public Optional<User> findByUsername(String username) {
+        return this.userRepository.findByUsername(username);
+    }
+
     private void initializeRoles() {
         if(roleRepository.count() == 0) {
             Role admin = new Role();
@@ -62,11 +69,11 @@ public class UserServiceImpl implements UserService {
             User admin = new User();
             admin.setFullName("Admin Adminov");
             admin.setUsername("admin");
-            admin.setPassword(passwordEncoder.encode("test"));
+            admin.setPassword(passwordEncoder.encode("admin4o"));
             admin.setAddress("st.Rezbarska 69");
             admin.setEmail("adminovk@gmail.com");
             admin.setGender("male");
-            admin.setRoles(Set.of(adminRole, userRole));
+            admin.setRoles(Set.of(adminRole));
             userRepository.save(admin);
 
             User user = new User();
@@ -76,7 +83,7 @@ public class UserServiceImpl implements UserService {
             user.setAddress("st.Stamboliiski 47");
             user.setEmail("userovt@gmail.com");
             user.setGender("male");
-            user.setRoles(Set.of(adminRole, userRole));
+            user.setRoles(Set.of(userRole));
             userRepository.save(user);
 
         }

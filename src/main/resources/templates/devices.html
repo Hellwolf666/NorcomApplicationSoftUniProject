@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="fragments/commons::head">
 </head>
@@ -25,8 +26,10 @@
                                 <div class="toggle max-toggle"></div>
                             </div>
                             <div class="price-controls">
-                                Oт: <input class="min-price" type="text" placeholder="0" style="width: 60px">
-                                До: <input class="max-price" type="text" placeholder="5000" style="width: 60px">
+                                <label for="startPrice" class="form-label font-weight-bold">От: </label>
+                                <input id="startPrice" class="min-price" type="text" placeholder="0" style="width: 60px">
+                                <label for="endPrice" class="form-label font-weight-bold">До: </label>
+                                <input id="endPrice" class="max-price" type="text" placeholder="5000" style="width: 60px">
                             </div>
                         </div>
                         <div class="container-fluid">
@@ -71,12 +74,12 @@
             </div>
             <div class="row" style="margin: 40px;">
                 <div class="device-list">
-                    <div class="card" style="width: 18rem;">
+                    <div class="card" style="width: 18rem;" sec:authorize="hasRole('ADMIN')">
                         <img class="card-img-top" src="images/phone.png" width="256" height="256" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title text-center">Име на устройството</h5>
                             <p class="card-text">Примерни характеристики</p>
-                            <a href="#add-device.html" class="btn btn-success">Добави</a>
+                            <a th:href="@{/add-device}" class="btn btn-success">Добави</a>
                         </div>
                     </div>
                 </div>

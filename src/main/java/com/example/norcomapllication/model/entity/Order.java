@@ -19,7 +19,7 @@ public class Order  extends BaseEntity{
         this.user = user;
         return this;
     }
-    @Column(name = "phone_number")
+    @Column(name = "phone_number",unique = true)
     public String getPhoneNumber() {
         return phoneNumber;
     }

@@ -22,7 +22,7 @@ public class NorcomUserServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = (User) userRepository.findByUsername(username).orElseThrow(()-> new UsernameNotFoundException("User with that "+username+" does not exists!"));
+    User user =  userRepository.findByUsername(username).orElseThrow(()-> new UsernameNotFoundException("User with that "+username+" does not exists!"));
     return mapUserDetails(user);
     }
 

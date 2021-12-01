@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      >
 
 <head th:fragment="head">
     <meta charset="UTF-8">
@@ -36,37 +38,36 @@
 <header th:fragment="nav">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
         <a class="navbar-brand" href="/"><img th:src="@{/images/logo.png}" alt="alternative"/></a>
-
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link" th:href="@{/devices}">Устройства</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link" th:href="@{/mobile-plans}">Мобилни планове</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link" th:href="@{/services}">Услуги</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link" th:href="@{/contacts}">Контакти</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="isAnonymous()">
                     <a class="nav-link" th:href="@{/users/login}">Вход</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="isAnonymous()">
                     <a class="nav-link" th:href="@{/users/register}">Регистрация</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link" th:href="@{/users/profile}">Профил</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <div class="form-inline my-2 my-lg-0 px-3">
-                        <div class="text-white">Здравейте, <th:block sec:authentication="fullName"></th:block>!</div>
+                        <div class="text-white">Здравейте, <th:block sec:authentication="name"></th:block>!</div>
                         <form th:action="@{/users/logout}" th:method="post">
-                            <input class="btn btn-link nav-link" type="submit" value="Logout">
+                            <input class="btn btn-link nav-link" type="submit" value="Излез от профила си">
                         </form>
                     </div>
                 </li>

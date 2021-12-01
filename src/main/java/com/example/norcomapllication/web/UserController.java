@@ -6,6 +6,7 @@ import com.example.norcomapllication.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -28,10 +29,30 @@ public class UserController {
         this.modelMapper = modelMapper;
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @PostMapping("/login-error")
+    public String failedLogin(
+            @ModelAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
+                    String username,
+            RedirectAttributes attributes) {
+
+        attributes.addFlashAttribute("bad_credentials", true);
+        attributes.addFlashAttribute("username", username);
+
+        return "redirect:/users/login";
+    }
+
+
+
     @ModelAttribute("userRegisterBindingModel")
     public UserRegisterBindingModel userModel() {
         return new UserRegisterBindingModel();
     }
+
 
 
     @GetMapping("/register")
@@ -40,7 +61,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerConfirm(@Valid UserRegisterBindingModel userRegisterBindingModel, BindingResult bindingResult, RedirectAttributes redirectAttributes, @RequestParam(value = "gender") String gender) {
+    public String registerConfirm(@Valid UserRegisterBindingModel userRegisterBindingModel, BindingResult bindingResult, RedirectAttributes redirectAttributes, @RequestParam(value = "gender", required = false) String gender) {
         if (bindingResult.hasErrors() || !userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword()) || gender.isEmpty()) {
             redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
@@ -52,18 +73,6 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-
-    @PostMapping("login-error")
-    public String loginFailed(@ModelAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY) String username, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("bad_credentials", true);
-        redirectAttributes.addFlashAttribute("username", username);
-        return "redirect:/login";
-
-    }
     @RequestMapping(value="/users/logout", method = RequestMethod.GET)
     public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

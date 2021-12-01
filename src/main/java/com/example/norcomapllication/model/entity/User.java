@@ -16,7 +16,7 @@ public class User  extends BaseEntity{
     public String gender;
     public String username;
     public String password;
-    public Set<Order> order;
+    public Set<Order> orders;
     private Set<Role> roles = new HashSet<>();
     private Set<Device> devices;
 
@@ -88,11 +88,11 @@ public class User  extends BaseEntity{
 
     @OneToMany(mappedBy = "user")
     public Set<Order> getOrder() {
-        return order;
+        return orders;
     }
 
-    public User setOrder(Set<Order> order) {
-        this.order = order;
+    public User setOrder(Set<Order> orders) {
+        this.orders = orders;
         return this;
 
     }
