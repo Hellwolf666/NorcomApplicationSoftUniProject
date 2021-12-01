@@ -11,120 +11,186 @@
             <div class="row h-100 justify-content-center align-items-center">
                 <div class="col-lg-6">
                     <h1>Добави устройство</h1>
-                    <form>
+                    <form th:action="@{/devices/add-device}" th:method="POST" th:object="${deviceAddBindingModel}">
                         <div class="form-group">
                             <label for="url1">1-URL линк за снимка на устройството</label>
-                            <input type="text" class="form-control" id="url1"
+                            <input th:field="*{firstImageUrl}"  type="text" class="form-control" id="url1"
                                 placeholder="https://cdn.statically.io/img/websetnet.net/f=auto%2Cq=60/wp-content/uploads/2021/04/oneplus-9-pro-21.jpgput"
                                 size="12">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                Линк към снимка е задължително поле!
+                            </p>
                         </div>
                         <div class="form-group">
-                            <label for="url2">2-URL линк за снимка на устройството</label>
+                            <label th:field="*{secondImageUrl}"  for="url2">2-URL линк за снимка на устройството</label>
                             <input type="text" class="form-control" id="url2"
                                 placeholder="https://cdn.statically.io/img/websetnet.net/f=auto%2Cq=60/wp-content/uploads/2021/04/oneplus-9-pro-21.jpgput">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                Линк към снимка е задължително поле!
+                            </p>
                         </div>
                         <div class="form-group">
-                            <label for="url3">3-URL линк за снимка на устройството</label>
+                            <label th:field="*{thirdImageUrl}"  for="url3">3-URL линк за снимка на устройството</label>
                             <input type="text" class="form-control" id="url3"
                                 placeholder="https://cdn.statically.io/img/websetnet.net/f=auto%2Cq=60/wp-content/uploads/2021/04/oneplus-9-pro-21.jpgput">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                Линк към снимка е задължително поле!
+                            </p>
                         </div>
                         <div class="form-group">
-                            <label for="url4">4-URL линк за снимка на устройството</label>
+                            <label th:field="*{fourthImageUrl}"  for="url4">4-URL линк за снимка на устройството</label>
                             <input type="text" class="form-control" id="url4"
                                 placeholder="https://cdn.statically.io/img/websetnet.net/f=auto%2Cq=60/wp-content/uploads/2021/04/oneplus-9-pro-21.jpgput">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                Линк към снимка е задължително поле!
+                            </p>
                         </div>
                         <div class="form-group">
-                            <label for="url5">5-URL линк за снимка на устройството</label>
+                            <label th:field="*{fifthImageUrl}"  for="url5">5-URL линк за снимка на устройството</label>
                             <input type="text" class="form-control" id="url5"
                                 placeholder="https://cdn.statically.io/img/websetnet.net/f=auto%2Cq=60/wp-content/uploads/2021/04/oneplus-9-pro-21.jpgput">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                Линк към снимка е задължително поле!
+                            </p>
                         </div>
                         <h2>ХАРАКТЕРИСТИКИ</h2>
                         <div class="form-group">
                             <label for="name">Име на устройството</label>
-                            <input type="text" class="form-control" id="name" placeholder="Oneplus 9 Pro">
+                            <input th:field="*{name}"  type="text" class="form-control" id="name" placeholder="Oneplus 9 Pro">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                Името не може да е празно!
+                            </p>
                         </div>
                         <div class="form-group">
                             <label for="price">Цена на устройството</label>
-                            <input type="text" class="form-control" id="price" placeholder="1999.99">
+                            <input th:field="*{price}"  type="text" class="form-control" id="price" placeholder="1999.99">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                Цената трябва да е най-малко 100 и неможе да е празно!
+                            </p>
                         </div>
                         <div class="form-group">
                             <label for="mreja">Мрежа</label>
-                            <input type="text" class="form-control" id="mreja" placeholder="3G, 4G or 5G">
+                            <input th:field="*{type}"  type="text" class="form-control" id="mreja" placeholder="3G, 4G or 5G">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                Мрежата е задължително поле!
+                            </p>
                         </div>
                         <div class="form-group">
                             <label for="os">Операционна система</label>
-                            <input type="text" class="form-control" id="os" placeholder="Andorid or iOS">
+                            <input th:field="*{operationSystem}"  type="text" class="form-control" id="os" placeholder="Andorid or iOS">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                Опрационната система е задължително поле!
+                            </p>
                         </div>
                         <div class="form-group">
                             <label for="cpu">Процесор</label>
-                            <input type="text" class="form-control" id="cpu" placeholder="Octa-core (1x2.84 GHz, 3x2.42 GHz & 4x1.80 GHz)">
+                            <input th:field="*{processor}"  type="text" class="form-control" id="cpu" placeholder="Octa-core (1x2.84 GHz, 3x2.42 GHz & 4x1.80 GHz)">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                Процесор полето е задължително поле!
+                            </p>
                         </div>
                         <div class="form-group">
                             <label for="chipset">Чипсет</label>
-                            <input type="text" class="form-control" id="chipset" placeholder="Qualcomm MSM8916 Snapdragon 410">
+                            <input th:field="*{chipset}"  type="text" class="form-control" id="chipset" placeholder="Qualcomm MSM8916 Snapdragon 410">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                Чипсет полето е задължително поле!
+                            </p>
                         </div>
                         <div class="form-group">
                             <label for="size">Размер на устройството</label>
-                            <input type="text" class="form-control" id="size" placeholder="134.5 x 65.2 x 7.3 mm">
+                            <input th:field="*{sizeDevice}"  type="text" class="form-control" id="size" placeholder="134.5 x 65.2 x 7.3 mm">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                Размер на устройството е задължително поле!
+                            </p>
                         </div>
                         <div class="form-group">
                             <label for="weight">Тегло</label>
-                            <input type="text" class="form-control" id="weight" placeholder="132 гр.">
+                            <input th:field="*{weightDevice}"  type="text" class="form-control" id="weight" placeholder="132 гр.">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                Теглото е задължително поле!
+                            </p>
                         </div>
                         <div class="form-group">
                             <label for="screenType">Тип на екрана</label>
-                            <input type="text" class="form-control" id="screenType" placeholder="Super AMOLED capacitive touchscreen, 16M colors">
+                            <input th:field="*{typeOfScreen}"  type="text" class="form-control" id="screenType" placeholder="Super AMOLED capacitive touchscreen, 16M colors">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                Типът на екрана е задължително поле!
+                            </p>
                         </div>
                         <div class="form-group">
                             <label for="screenSize">Размер на екрана</label>
-                            <input type="text" class="form-control" id="screenSize" placeholder="4.7 инча">
+                            <input th:field="*{sizeOfScreen}"  type="text" class="form-control" id="screenSize" placeholder="4.7 инча">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                Размер на екрана е задължително поле!
+                            </p>
                         </div>
                         <div class="form-group">
                             <label for="resolution">Резолюция на екрана</label>
-                            <input type="text" class="form-control" id="resolution" placeholder="720 x 1280 pixels">
+                            <input th:field="*{resolutionOfScreen}"  type="text" class="form-control" id="resolution" placeholder="720 x 1280 pixels">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                Резолюция на екрана е задължително поле!
+                            </p>
                         </div>
                         <div class="form-group">
                             <label for="cardMemory">Размер на карта с памет</label>
-                            <input type="text" class="form-control" id="cardMemory" placeholder="Ако има: пр.256 GB; Ако няма: няма">
+                            <input th:field="*{cardMemory}"  type="text" class="form-control" id="cardMemory" placeholder="Ако има: пр.256 GB; Ако няма: няма">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                Размера на картата с памет е задължително поле!
+                            </p>
                         </div>
                         <div class="form-group">
                             <label for="internalMemory">Памет на устройството</label>
-                            <input type="text" class="form-control" id="internalMemory" placeholder="16 GB">
+                            <input th:field="*{deviceStorage}"  type="text" class="form-control" id="internalMemory" placeholder="16 GB">
+                            <p class="errors alert alert-danger invalid-feedback">
+                              Паметта на устройството е задължително поле!
+                            </p>
                         </div>
                         <div class="form-group">
                             <label for="ramMemory">RAM Памет</label>
-                            <input type="text" class="form-control" id="ramMemory" placeholder="1.5 GB">
+                            <input th:field="*{deviceRamStorage}"  type="text" class="form-control" id="ramMemory" placeholder="1.5 GB">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                RAM паметта на устройството е задължително поле!
+                            </p>
                         </div>
                         <div class="form-group">
                             <label for="backCamera">Задна камера</label>
-                            <input type="text" class="form-control" id="backCamera" placeholder="13 MP, 4128 x 3096 pixels">
+                            <input th:field="*{backCamera}"  type="text" class="form-control" id="backCamera" placeholder="13 MP, 4128 x 3096 pixels">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                Задната камера е задължително поле!
+                            </p>
                         </div>
                         <div class="form-group">
                             <label for="frontCamera">Предна камера</label>
-                            <input type="text" class="form-control" id="frontCamera" placeholder="5 MP">
+                            <input th:field="*{frontCamera}"  type="text" class="form-control" id="frontCamera" placeholder="5 MP">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                Предната камера е задължително поле!
+                            </p>
                         </div>
 
                         <div class="form-group">
                             <label for="speaker">Високоговорител</label>
-                            <select name="speaker" id="speaker">
-                                <option value="yes">Да</option>
-                                <option value="no">Не</option>
-                            </select>
+                            <input th:field="*{speaker}"  type="text" class="form-control" id="speaker" placeholder="Има/няма">
+                            <p class="errors alert alert-danger invalid-feedback">
+                               Високоговорителя е задължително поле!
+                            </p>
                         </div>
                         <div class="form-group">
                             <label for="headphoneSlot">Жак за слушалки</label>
-                            <select name="headphoneSlot" id="headphoneSlot">
-                                <option value="yes">Да</option>
-                                <option value="no">Не</option>
-                            </select>
+                            <input th:field="*{headphoneSlot}"  type="text" class="form-control" id="headphoneSlot" placeholder="Има/няма">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                Полето "Жак за слушалки" е задължително поле!
+                            </p>
                         </div>
                         <div class="form-group">
                             <label for="batterySize">Капацитет на батерията</label>
-                            <input type="text" class="form-control" id="batterySize" placeholder="3000 mAh">
+                            <input th:field="*{batteryCapacity}"  type="text" class="form-control" id="batterySize" placeholder="3000 mAh">
+                            <p class="errors alert alert-danger invalid-feedback">
+                                Капацитета на батерия е задължително поле!
+                            </p>
                         </div>
                     </form>
                     <div class="text-center">
-                        <a href="#" class="btn btn-success text-center" style="margin: 20px;">Добави устройство</a>
+                        <a type="submit" class="btn btn-success text-center" style="margin: 20px;">Добави устройство</a>
                     </div>
                 </div>
             </div>

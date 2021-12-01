@@ -10,32 +10,33 @@ import java.util.Set;
 @Entity
 @Table(name = "devices")
 public class Device extends BaseEntity{
-    public String firstImageUrl;
-    public String secondImageUrl;
-    public String thirdImageUrl;
-    public String fourthImageUrl;
-    public String fifthImageUrl;
-    public String name;
-    public BigDecimal price;
-    public MobilePlanType type;
-    public OperationSystemType operationSystem;
-    public String processor;
-    public String chipset;
-    public String sizeDevice;
-    public Long weightDevice;
-    public Long typeOfScreen;
-    public Integer sizeOfScreen;
-    public String resolutionOfScreen;
-    public String cardMemory;
-    public String deviceStorage;
-    public String deviceRamStorage;
-    public String backCamera;
-    public String frontCamera;
-    public String speaker;
-    public String headphoneSlot;
-    public String batteryCapacity;
-    public User user;
-    public Set<Order> orders;
+    private String firstImageUrl;
+    private String secondImageUrl;
+    private String thirdImageUrl;
+    private String fourthImageUrl;
+    private String fifthImageUrl;
+    private String name;
+    private BigDecimal price;
+    private String type;
+    private OperationSystemType operationSystem;
+    private String processor;
+    private String chipset;
+    private String sizeDevice;
+    private Long weightDevice;
+    private String typeOfScreen;
+    private BigDecimal sizeOfScreen;
+    private String resolutionOfScreen;
+    private String cardMemory;
+    private String deviceStorage;
+    private String deviceRamStorage;
+    private String backCamera;
+    private String frontCamera;
+    private String speaker;
+    private String headphoneSlot;
+    private String batteryCapacity;
+    private User user;
+    private Set<Order> orders;
+
 
     public Device() {
     }
@@ -103,12 +104,12 @@ public class Device extends BaseEntity{
         return this;
     }
 
-    @Enumerated(EnumType.STRING)
-    public MobilePlanType getType() {
+    @Column(nullable = false)
+    public String getType() {
         return type;
     }
 
-    public Device setType(MobilePlanType type) {
+    public Device setType(String type) {
         this.type = type;
         return this;
     }
@@ -158,20 +159,20 @@ public class Device extends BaseEntity{
         return this;
     }
     @Column(name = "type_of_screen",nullable = false)
-    public Long getTypeOfScreen() {
+    public String getTypeOfScreen() {
         return typeOfScreen;
     }
 
-    public Device setTypeOfScreen(Long typeOfScreen) {
+    public Device setTypeOfScreen(String typeOfScreen) {
         this.typeOfScreen = typeOfScreen;
         return this;
     }
     @Column(name = "size_of_screen",nullable = false)
-    public Integer getSizeOfScreen() {
+    public BigDecimal getSizeOfScreen() {
         return sizeOfScreen;
     }
 
-    public Device setSizeOfScreen(Integer sizeOfScreen) {
+    public Device setSizeOfScreen(BigDecimal sizeOfScreen) {
         this.sizeOfScreen = sizeOfScreen;
         return this;
     }
@@ -211,7 +212,7 @@ public class Device extends BaseEntity{
         this.deviceRamStorage = deviceRamStorage;
         return this;
     }
-    @Column(name = "back_camera",nullable = false)
+    @Column(name = "back_camera",nullable = false ,columnDefinition = "TEXT")
     public String getBackCamera() {
         return backCamera;
     }

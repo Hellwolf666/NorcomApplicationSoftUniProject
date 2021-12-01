@@ -98,17 +98,11 @@
                         </div>
                         <div class="form-group">
                             <label for="speaker">Високоговорител</label>
-                            <select name="speaker" id="speaker">
-                                <option value="yes">Да</option>
-                                <option value="no">Не</option>
-                            </select>
+                            <input th:field="*{speaker}" th:errorclass="is-invalid" type="text" class="form-control" id="speaker" placeholder="Има/няма">
                         </div>
                         <div class="form-group">
                             <label for="headphoneSlot">Жак за слушалки</label>
-                            <select name="headphoneSlot" id="headphoneSlot">
-                                <option value="yes">Да</option>
-                                <option value="no">Не</option>
-                            </select>
+                            <input th:field="*{headphoneSlot}" th:errorclass="is-invalid" type="text" class="form-control" id="headphoneSlot" placeholder="Има/няма">
                         </div>
                         <div class="form-group">
                             <label for="batterySize">Капацитет на батерията</label>

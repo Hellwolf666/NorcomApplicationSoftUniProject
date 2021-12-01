@@ -3,6 +3,7 @@ package com.example.norcomapllication.service.impl;
 import com.example.norcomapllication.model.entity.Role;
 import com.example.norcomapllication.model.entity.User;
 import com.example.norcomapllication.model.entity.enums.RoleEnumClass;
+import com.example.norcomapllication.model.service.ProfileUpdateServiceModel;
 import com.example.norcomapllication.model.service.UserRegisterServiceModel;
 import com.example.norcomapllication.repository.RoleRepository;
 import com.example.norcomapllication.repository.UserRepository;
@@ -47,6 +48,14 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findByUsername(String username) {
         return this.userRepository.findByUsername(username);
     }
+
+    @Override
+    public Optional<User> findById(Long id) {
+        Optional<User> byId = userRepository.findById(id);
+        return byId;
+    }
+
+
 
     private void initializeRoles() {
         if(roleRepository.count() == 0) {

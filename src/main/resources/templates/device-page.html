@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:font-weight="http://www.w3.org/1999/xhtml">
 
 <head th:replace="fragments/commons::head">
 </head>
 
 <body>
-    <header th:replace="fragments/commons::nav">
-    </header>
-    <main role="main">
+<header th:replace="fragments/commons::nav">
+</header>
+<main role="main">
+    <form th:object="${device}">
         <div id="deviceCarousel" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#deviceCarousel" data-slide-to="0" class="active"></li>
@@ -19,24 +20,24 @@
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="https://www.androidcentral.com/sites/androidcentral.com/files/styles/large_wm_brw/public/article_images/2021/03/oneplus-9-pro-27.jpg"
-                        class="d-block w-5" style="margin: auto;" alt="Slide 1" width="800" height="450">
+                    <img th:src="*{firstImageUrl}"
+                         class="d-block w-5" style="margin: auto;" alt="Slide 1" width="800" height="450">
                 </div>
                 <div class="carousel-item">
-                    <img src="https://cdn.statically.io/img/websetnet.net/f=auto%2Cq=60/wp-content/uploads/2021/04/oneplus-9-pro-36.jpg"
-                        class="d-block w-5" style="margin: auto;" alt="Slide 2" width="800" height="450">
+                    <img th:src="*{secondImageUrl}"
+                         class="d-block w-5" style="margin: auto;" alt="Slide 2" width="800" height="450">
                 </div>
                 <div class="carousel-item">
-                    <img src="https://cdn.statically.io/img/websetnet.net/f=auto%2Cq=60/wp-content/uploads/2021/04/oneplus-9-pro-38.jpg"
-                        class="d-block w-5" style="margin: auto;" alt="Slide 3" width="800" height="450">
+                    <img th:src="*{thirdImageUrl}"
+                         class="d-block w-5" style="margin: auto;" alt="Slide 3" width="800" height="450">
                 </div>
                 <div class="carousel-item">
-                    <img src="https://cdn.statically.io/img/websetnet.net/f=auto%2Cq=60/wp-content/uploads/2021/04/oneplus-9-pro-8.jpg"
-                        class="d-block w-5" style="margin: auto;" alt="Slide 4" width="800" height="450">
+                    <img th:src="*{fourthImageUrl}"
+                         class="d-block w-5" style="margin: auto;" alt="Slide 4" width="800" height="450">
                 </div>
                 <div class="carousel-item">
-                    <img src="https://cdn.statically.io/img/websetnet.net/f=auto%2Cq=60/wp-content/uploads/2021/04/oneplus-9-pro-21.jpg"
-                        class="d-block w-5" style="margin: auto;" alt="Slide 5" width="800" height="450">
+                    <img th:src="*{fifthImageUrl}"
+                         class="d-block w-5" style="margin: auto;" alt="Slide 5" width="800" height="450">
                 </div>
             </div>
             <a class="carousel-control-prev" href="#deviceCarousel" role="button" data-slide="prev">
@@ -52,109 +53,105 @@
             <div class="center-block">
                 <table class="full">
                     <tbody>
-                        <tr>
-                            <th colspan="2" scope="col" style="text-align: center;"><span
-                                    style="font-size: large;">ХАРАКТЕРИСТИКИ</span></th>
-                        </tr>
+                    <tr>
+                        <th colspan="2" scope="col" style="text-align: center;"><span
+                                style="font-size: large;">ХАРАКТЕРИСТИКИ</span></th>
+                    </tr>
                     </tbody>
                     <tbody>
-                        <tr>
-                            <td><span style="font-weight:bold">Мрежа:</span></td>
-                            <td>4G</td>
-                        </tr>
-                        <tr>
-                            <td><span style="font-weight:bold">Операционна система:</span></td>
-                            <td>Android</td>
-                        </tr>
-                        <tr>
-                            <td><span style="font-weight:bold">Процесор:</span></td>
-                            <td><span style="text-align: justify;">Колко ядра и каква честота</span></td>
-                        </tr>
-                        <tr>
-                            <td><span style="font-weight:bold">Чипсет:</span></td>
-                            <td>Qualcomm MSM8916 Snapdragon 410</td>
-                        </tr>
-                        <tr>
-                            <th colspan="2" scope="col" style="text-align: center;"><span
-                                    style="font-size: large;">Съдържание</span></th>
-                        </tr>
-                        <tr>
-                            <td><span style="font-weight:bold">Размери:</span></td>
-                            <td>134.5 x 65.2 x 7.3 mm</td>
-                        </tr>
-                        <tr>
-                            <td><span style="font-weight:bold">Тегло:</span></td>
-                            <td>132 гр.</td>
-                        </tr>
-                        <tr>
-                            <th colspan="2" scope="col" style="text-align: center;"><span
-                                    style="font-size: large;">Екран</span></th>
-                        </tr>
-                        <tr>
-                            <td><span style="font-weight:bold">Тип:</span></td>
-                            <td>Super AMOLED capacitive touchscreen, 16M colors</td>
-                        </tr>
-                        <tr>
-                            <td><span style="font-weight:bold">Размер на екрана:</span></td>
-                            <td>4.7 инча</td>
-                        </tr>
-                        <tr>
-                            <td><span style="font-weight:bold">Резолюция:</span></td>
-                            <td>720 x 1280 pixels</td>
-                        </tr>
-                        <tr>
-                            <th colspan="2" scope="col" style="text-align: center;"><span
-                                    style="font-size: large;">Памет</span></th>
-                        </tr>
-                        <tr class="config_table">
-                            <td><span style="font-weight:bold">Карта памет:</span></td>
-                            <td>microSD, up to 128 GB</td>
-                        </tr>
-                        <tr class="config_table">
-                            <td><span style="font-weight:bold">Вътрешна памет:</span></td>
-                            <td>16 GB</td>
-                        </tr>
-                        <tr class="config_table">
-                            <td><span style="font-weight:bold">RAM памет:</span></td>
-                            <td>1.5 GB</td>
-                        </tr>
-                        <tr>
-                            <th colspan="2" scope="col" style="text-align: center;"><span
-                                    style="font-size: large;">Камера</span></th>
-                        </tr>
-                        <tr>
-                            <td><span style="font-weight:bold">Задна камера:</span></td>
-                            <td>13 MP, 4128 x 3096 pixels</td>
-                        </tr>
-                        <tr>
-                            <td><span style="font-weight:bold">Предна камера:</span></td>
-                            <td>5 MP</td>
-                        </tr>
-                        <tr>
-                            <td><span style="font-weight:bold">Функции:</span></td>
-                            <td>Geo-tagging, touch focus, face detection, panorama</td>
-                        </tr>
-                        <tr>
-                            <th colspan="2" scope="col" style="text-align: center;"><span
-                                    style="font-size: large;">Аудио</span></th>
-                        </tr>
-                        <tr class="config_table">
-                            <td><span style="font-weight:bold">Високоговорител:</span></td>
-                            <td>Yes</td>
-                        </tr>
-                        <tr class="config_table">
-                            <td><span style="font-weight:bold">Жак за слушалки(3,5mm):</span></td>
-                            <td>Yes</td>
-                        </tr>
-                        <tr>
-                            <th colspan="2" scope="col" style="text-align: center;"><span
-                                    style="font-size: large;">Батерия</span></th>
-                        </tr>
-                        <tr>
-                            <td><span style="font-weight:bold">Капацитет:</span></td>
-                            <td> 3000 mAh </td>
-                        </tr>
-                        <tr class="config_table"></tr>
+                    <tr>
+                        <td><span style="font-weight:bold">Мрежа:</span></td>
+                        <td th:text="*{type}">4G</td>
+                    </tr>
+                    <tr>
+                        <td><span style="font-weight:bold">Операционна система:</span></td>
+                        <td th:text="*{operationSystem}">Android</td>
+                    </tr>
+                    <tr>
+                        <td><span style="font-weight:bold">Процесор:</span></td>
+                        <td><span th:text="*{processor}" style="text-align: justify;">Колко ядра и каква честота</span></td>
+                    </tr>
+                    <tr>
+                        <td><span  style="font-weight:bold">Чипсет:</span></td>
+                        <td th:text="*{chipset}">Qualcomm MSM8916 Snapdragon 410</td>
+                    </tr>
+                    <tr>
+                        <th colspan="2" scope="col" style="text-align: center;"><span
+                                style="font-size: large;">Съдържание</span></th>
+                    </tr>
+                    <tr>
+                        <td><span style="font-weight:bold">Размери:</span></td>
+                        <td th:text="*{sizeDevice}">134.5 x 65.2 x 7.3 mm</td>
+                    </tr>
+                    <tr>
+                        <td><span style="font-weight:bold">Тегло:</span></td>
+                        <td th:text="*{weightDevice}">132 гр.</td>
+                    </tr>
+                    <tr>
+                        <th colspan="2" scope="col" style="text-align: center;"><span
+                                style="font-size: large;">Екран</span></th>
+                    </tr>
+                    <tr>
+                        <td><span style="font-weight:bold">Тип:</span></td>
+                        <td th:text="*{typeOfScreen}">Super AMOLED capacitive touchscreen, 16M colors</td>
+                    </tr>
+                    <tr>
+                        <td><span style="font-weight:bold">Размер на екрана:</span></td>
+                        <td th:text="*{sizeOfScreen}">4.7 инча</td>
+                    </tr>
+                    <tr>
+                        <td><span style="font-weight:bold">Резолюция:</span></td>
+                        <td th:text="*{resolutionOfScreen}">720 x 1280 pixels</td>
+                    </tr>
+                    <tr>
+                        <th colspan="2" scope="col" style="text-align: center;"><span
+                                style="font-size: large;">Памет</span></th>
+                    </tr>
+                    <tr class="config_table">
+                        <td><span style="font-weight:bold">Карта памет:</span></td>
+                        <td th:text="*{cardMemory}">microSD, up to 128 GB</td>
+                    </tr>
+                    <tr class="config_table">
+                        <td><span style="font-weight:bold">Вътрешна памет:</span></td>
+                        <td th:text="*{deviceStorage}">16 GB</td>
+                    </tr>
+                    <tr class="config_table">
+                        <td><span style="font-weight:bold">RAM памет:</span></td>
+                        <td th:text="*{deviceRamStorage}">1.5 GB</td>
+                    </tr>
+                    <tr>
+                        <th colspan="2" scope="col" style="text-align: center;"><span
+                                style="font-size: large;">Камера</span></th>
+                    </tr>
+                    <tr>
+                        <td><span style="font-weight:bold">Задна камера:</span></td>
+                        <td th:text="*{backCamera}">13 MP, 4128 x 3096 pixels</td>
+                    </tr>
+                    <tr>
+                        <td><span style="font-weight:bold">Предна камера:</span></td>
+                        <td th:text="*{frontCamera}">5 MP</td>
+                    </tr>
+                    <tr>
+                        <th colspan="2" scope="col" style="text-align: center;"><span
+                                style="font-size: large;">Аудио</span></th>
+                    </tr>
+                    <tr class="config_table">
+                        <td><span style="font-weight:bold">Високоговорител:</span></td>
+                        <td th:text="*{speaker}">Yes</td>
+                    </tr>
+                    <tr class="config_table">
+                        <td><span style="font-weight:bold">Жак за слушалки(3,5mm):</span></td>
+                        <td th:text="*{headphoneSlot}">Yes</td>
+                    </tr>
+                    <tr>
+                        <th colspan="2" scope="col" style="text-align: center;"><span
+                                style="font-size: large;">Батерия</span></th>
+                    </tr>
+                    <tr>
+                        <td><span style="font-weight:bold">Капацитет:</span></td>
+                        <td th:text="*{batteryCapacity}"> 3000 mAh</td>
+                    </tr>
+                    <tr class="config_table"></tr>
                     </tbody>
                 </table>
             </div>
@@ -174,19 +171,20 @@
                             <a href="#" class="btn btn-success text-center" style="margin: 20px;">Добави план</a>
                         </div>
                         <div>
-                            <span id="cost" style="font-weight:bold;">Цена на изплащане: $$$$ лв.</span>
+                            <span id="cost" style="font-weight:bold;">Цена на изплащане:</span>
                         </div>
                     </div>
                 </div>
                 <div class="p-2 bd-highlight">
-                    <span id="price" style="font-weight:bold;">Цена на устройството без план: $$$$ лв.
+                    <span id="price" style="font-weight:bold;">Цена на устройството без план:  <span th:text="*{price}">$$$$</span> лв.
                     </span>
                 </div>
             </div>
         </div>
-    </main>
-        <div th:replace="fragments/commons::footer" class="footer" id="footer">
-    </div>
+    </form>
+</main>
+<div th:replace="fragments/commons::footer" class="footer" id="footer">
+</div>
 </body>
 
 </html>

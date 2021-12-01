@@ -9,7 +9,7 @@ import java.util.Set;
 @Table(name = "mobile_plans")
 public class MobilePlan extends BaseEntity {
     private String name;
-    public MobilePlanType mobilePlanType;
+    public String mobilePlanType;
     public String internet;
     public String minutes;
     public String sms;
@@ -30,12 +30,12 @@ public class MobilePlan extends BaseEntity {
         return this;
     }
 
-    @Enumerated(EnumType.STRING)
-    public MobilePlanType getMobilePlanType() {
+    @Column(nullable = false)
+    public String getMobilePlanType() {
         return mobilePlanType;
     }
 
-    public MobilePlan setMobilePlanType(MobilePlanType mobilePlanType) {
+    public MobilePlan setMobilePlanType(String mobilePlanType) {
         this.mobilePlanType = mobilePlanType;
         return this;
     }
