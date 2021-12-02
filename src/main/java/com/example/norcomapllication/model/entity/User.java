@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User  extends BaseEntity{
+public class User extends BaseEntity {
     public String fullName;
     public String address;
     public String email;
@@ -19,10 +19,12 @@ public class User  extends BaseEntity{
     public Set<Order> orders;
     private Set<Role> roles = new HashSet<>();
     private Set<Device> devices;
+    private Set<MobilePlan> mobilePlans;
 
     public User() {
     }
-    @Column(unique = true,nullable = false)
+
+    @Column(unique = true, nullable = false)
     public String getFullName() {
         return fullName;
     }
@@ -43,7 +45,8 @@ public class User  extends BaseEntity{
         return this;
 
     }
-    @Column(unique = true,nullable = false)
+
+    @Column(unique = true, nullable = false)
     public String getEmail() {
         return email;
     }
@@ -53,6 +56,7 @@ public class User  extends BaseEntity{
         return this;
 
     }
+
     @Column(nullable = false)
     public String getGender() {
         return gender;
@@ -64,7 +68,7 @@ public class User  extends BaseEntity{
 
     }
 
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     public String getUsername() {
         return username;
     }
@@ -96,6 +100,7 @@ public class User  extends BaseEntity{
         return this;
 
     }
+
     @ManyToMany(fetch = FetchType.EAGER)
     public Set<Role> getRoles() {
         return roles;
@@ -106,6 +111,7 @@ public class User  extends BaseEntity{
         return this;
 
     }
+
     @OneToMany
     public Set<Device> getDevices() {
         return devices;
@@ -115,5 +121,14 @@ public class User  extends BaseEntity{
         this.devices = devices;
         return this;
 
+    }
+
+    @OneToMany
+    public Set<MobilePlan> getMobilePlans() {
+        return mobilePlans;
+    }
+
+    public void setMobilePlans(Set<MobilePlan> mobilePlans) {
+        this.mobilePlans = mobilePlans;
     }
 }

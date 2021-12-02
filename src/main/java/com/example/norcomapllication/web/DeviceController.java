@@ -11,6 +11,7 @@ import com.example.norcomapllication.service.impl.NorcomUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -55,8 +56,8 @@ public class DeviceController {
     @GetMapping("/devices/{id}/edit-device")
     public String editDevice(@PathVariable Long id, Model model, @AuthenticationPrincipal NorcomUser currentUser) {
         DeviceDetailsView deviceDetailsView = deviceService.findById(id,currentUser.getUserIdentifier());
-        DeviceUpdateBindingModel updateBindingModel = modelMapper.map(deviceDetailsView,DeviceUpdateBindingModel.class);
-        model.addAttribute("updateBindingModel",updateBindingModel);
+        DeviceUpdateBindingModel deviceUpdateBindingModel = modelMapper.map(deviceDetailsView,DeviceUpdateBindingModel.class);
+        model.addAttribute("deviceUpdateBindingModel",deviceUpdateBindingModel);
         return "edit-device";
     }
 
@@ -75,7 +76,7 @@ public class DeviceController {
 
         if (bindingResult.hasErrors()) {
 
-            redirectAttributes.addFlashAttribute("DeviceUpdateBindingModel", deviceUpdateBindingModel);
+            redirectAttributes.addFlashAttribute("deviceUpdateBindingModel", deviceUpdateBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.deviceUpdateBindingModel", bindingResult);
 
             return "redirect:/devices/" + id + "/edit-device/errors";
@@ -93,18 +94,19 @@ public class DeviceController {
     public String getAddDevicePage(Model model) {
 
         if (!model.containsAttribute("deviceAddBindingModel")) {
-            model.
-                    addAttribute("deviceAddBindingModel", new DeviceAddBindingModel());
+            model.addAttribute("deviceAddBindingModel", new DeviceAddBindingModel());
         }
         return "add-device";
     }
     @PostMapping("/devices/add-device")
-    public String addDevice(@Valid DeviceAddBindingModel deviceAddBindingModel,BindingResult bindingResult,RedirectAttributes redirectAttributes,@AuthenticationPrincipal NorcomUser user) {
+    public String addDevice(@Valid DeviceAddBindingModel deviceAddBindingModel, BindingResult bindingResult, RedirectAttributes redirectAttributes, @CurrentSecurityContext(expression = "authentication?.name") String name) {
         if(bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("deviceAddBindingModel",deviceAddBindingModel)
+            redirectAttributes
+                    .addFlashAttribute("deviceAddBindingModel",deviceAddBindingModel)
                     .addFlashAttribute("org.springframework.validation.BindingResult.deviceAddBindingModel",bindingResult);
+            return "redirect:/devices/add-device";
         }
-        DeviceAddServiceModel deviceAddServiceModel = deviceService.addDevice(deviceAddBindingModel,user.getUserIdentifier());
+        DeviceAddServiceModel deviceAddServiceModel = deviceService.addDevice(deviceAddBindingModel,name);
         return "redirect:/devices/" +deviceAddServiceModel.getId()+"/device-page";
     }
 }

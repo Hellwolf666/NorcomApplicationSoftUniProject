@@ -1,6 +1,7 @@
 package com.example.norcomapllication.config;
 
 import com.example.norcomapllication.service.DeviceService;
+import com.example.norcomapllication.service.MobilePlanService;
 import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionOperations;
 import org.springframework.security.core.Authentication;
@@ -12,6 +13,7 @@ public class OwnerSecurityExpressionRoot extends SecurityExpressionRoot implemen
   private Object filterObject;
   private Object returnObject;
   private DeviceService deviceService;
+  private MobilePlanService mobilePlanService;
 
   /**
    * Creates a new instance
@@ -26,8 +28,9 @@ public class OwnerSecurityExpressionRoot extends SecurityExpressionRoot implemen
   public boolean isOwner(Long id) {
     String userName = currentUsername();
     if (userName != null) {
-      return deviceService.isOwner(userName, id);
+      return deviceService.isOwner(userName, id) && mobilePlanService.isOwner(userName,id);
     }
+
     return false;
   }
 

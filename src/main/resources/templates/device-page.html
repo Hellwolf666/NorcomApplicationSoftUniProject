@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" xmlns:font-weight="http://www.w3.org/1999/xhtml">
+      xmlns:th="http://www.thymeleaf.org" xmlns:font-weight="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head th:replace="fragments/commons::head">
 </head>
@@ -49,8 +50,21 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
+
         <div class="row" style="margin: 40px;">
+            <div class="title">
+                <h1 th:text="*{name}" class="text-center"></h1>
+                <div class="btn-group" sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/devices/{id}/edit-device(id=*{id})}" class="btn btn-success">Редактирай</a>
+                    <th:block th:if="*{canDelete}">
+                        <form th:action="@{/offers/{id}(id=*{id})}" th:method="delete">
+                            <input type="submit" class="btn btn-warning" value="Изтрий"/>
+                        </form>
+                    </th:block>
+                </div>
+            </div>
             <div class="center-block">
+
                 <table class="full">
                     <tbody>
                     <tr>
@@ -69,10 +83,11 @@
                     </tr>
                     <tr>
                         <td><span style="font-weight:bold">Процесор:</span></td>
-                        <td><span th:text="*{processor}" style="text-align: justify;">Колко ядра и каква честота</span></td>
+                        <td><span th:text="*{processor}" style="text-align: justify;">Колко ядра и каква честота</span>
+                        </td>
                     </tr>
                     <tr>
-                        <td><span  style="font-weight:bold">Чипсет:</span></td>
+                        <td><span style="font-weight:bold">Чипсет:</span></td>
                         <td th:text="*{chipset}">Qualcomm MSM8916 Snapdragon 410</td>
                     </tr>
                     <tr>
@@ -81,11 +96,11 @@
                     </tr>
                     <tr>
                         <td><span style="font-weight:bold">Размери:</span></td>
-                        <td th:text="*{sizeDevice}">134.5 x 65.2 x 7.3 mm</td>
+                        <td th:text="*{sizeDevice +' mm'} ">134.5 x 65.2 x 7.3</td>
                     </tr>
                     <tr>
                         <td><span style="font-weight:bold">Тегло:</span></td>
-                        <td th:text="*{weightDevice}">132 гр.</td>
+                        <td th:text="*{weightDevice + ' гр.'}">132</td>
                     </tr>
                     <tr>
                         <th colspan="2" scope="col" style="text-align: center;"><span
@@ -97,27 +112,31 @@
                     </tr>
                     <tr>
                         <td><span style="font-weight:bold">Размер на екрана:</span></td>
-                        <td th:text="*{sizeOfScreen}">4.7 инча</td>
+                        <td th:text="*{sizeOfScreen + ' инча'}">4.7</td>
                     </tr>
                     <tr>
                         <td><span style="font-weight:bold">Резолюция:</span></td>
-                        <td th:text="*{resolutionOfScreen}">720 x 1280 pixels</td>
+                        <td th:text="*{resolutionOfScreen + ' pixels'}">720 x 1280</td>
                     </tr>
                     <tr>
                         <th colspan="2" scope="col" style="text-align: center;"><span
                                 style="font-size: large;">Памет</span></th>
                     </tr>
-                    <tr class="config_table">
-                        <td><span style="font-weight:bold">Карта памет:</span></td>
-                        <td th:text="*{cardMemory}">microSD, up to 128 GB</td>
+                    <tr class="config_table" th:if="${!device.cardMemory.equalsIgnoreCase('няма')}">
+                        <td><span style="font-weight:bold">Слот за карта памет:</span></td>
+                        <td th:text="*{'microSD, up to '+ cardMemory +' GB'}">microSD, up to 128 GB </span></td>
+                    </tr>
+                    <tr class="config_table" th:if="${device.cardMemory.equalsIgnoreCase('няма')}">
+                        <td><span style="font-weight:bold">Слот за карта памет:</span></td>
+                        <td th:text="*{'Няма'}">microSD, up to 128 GB </span></td>
                     </tr>
                     <tr class="config_table">
                         <td><span style="font-weight:bold">Вътрешна памет:</span></td>
-                        <td th:text="*{deviceStorage}">16 GB</td>
+                        <td th:text="*{deviceStorage + ' GB'}">16 GB</td>
                     </tr>
                     <tr class="config_table">
                         <td><span style="font-weight:bold">RAM памет:</span></td>
-                        <td th:text="*{deviceRamStorage}">1.5 GB</td>
+                        <td th:text="*{deviceRamStorage + ' GB'}">1.5 GB</td>
                     </tr>
                     <tr>
                         <th colspan="2" scope="col" style="text-align: center;"><span
@@ -135,13 +154,21 @@
                         <th colspan="2" scope="col" style="text-align: center;"><span
                                 style="font-size: large;">Аудио</span></th>
                     </tr>
-                    <tr class="config_table">
-                        <td><span style="font-weight:bold">Високоговорител:</span></td>
-                        <td th:text="*{speaker}">Yes</td>
+                    <tr class="config_table" th:if="${!device.speaker.equalsIgnoreCase('няма')}">
+                        <td><span style="font-weight:bold">Слот за карта памет:</span></td>
+                        <td th:text="*{'Имаа'}"></td>
                     </tr>
-                    <tr class="config_table">
-                        <td><span style="font-weight:bold">Жак за слушалки(3,5mm):</span></td>
-                        <td th:text="*{headphoneSlot}">Yes</td>
+                    <tr class="config_table" th:if="${device.speaker.equalsIgnoreCase('няма')}">
+                        <td><span style="font-weight:bold">Слот за карта памет:</span></td>
+                        <td th:text="*{'Няма'}"></td>
+                    </tr>
+                    <tr class="config_table" th:if="${!device.headphoneSlot.equalsIgnoreCase('няма')}">
+                        <td><span style="font-weight:bold">Слот за карта памет:</span></td>
+                        <td th:text="*{'Има'}"></td>
+                    </tr>
+                    <tr class="config_table" th:if="${device.headphoneSlot.equalsIgnoreCase('няма')}">
+                        <td><span style="font-weight:bold">3.5 mm Жак за слушалки</span></td>
+                        <td th:text="*{'Няма'}"></td>
                     </tr>
                     <tr>
                         <th colspan="2" scope="col" style="text-align: center;"><span
@@ -149,35 +176,51 @@
                     </tr>
                     <tr>
                         <td><span style="font-weight:bold">Капацитет:</span></td>
-                        <td th:text="*{batteryCapacity}"> 3000 mAh</td>
+                        <td th:text="*{batteryCapacity+'mAh'}"> 3000</td>
                     </tr>
                     <tr class="config_table"></tr>
                     </tbody>
                 </table>
             </div>
-            <div class="d-flex flex-column bd-highlight mb-3" style="margin-left: 250px;">
-                <div class="card-transparen center-block p-2 bd-highlight" style="width: 18rem; text-align: center;">
-                    <div class="card-body">
-                        <h5 class="card-title">Вземете на изплащане</h5>
-                        <label for="plans">Избери план:</label>
-                        <select name="mobile-plans" id="plans">
-                            <option value="noplan">Без план</option>
-                        </select>
-                        <label for="period">Период:</label>
-                        <select name="period" id="period">
-                            <option value="noplan">24 месеца</option>
-                        </select>
-                        <div>
-                            <a href="#" class="btn btn-success text-center" style="margin: 20px;">Добави план</a>
-                        </div>
-                        <div>
-                            <span id="cost" style="font-weight:bold;">Цена на изплащане:</span>
+            <div class="row" style="margin: 25px; align-content: center">
+                <div class="col-sm-6">
+                    <div class="card text-white bg-dark mb-3 text-center">
+                        <div class="card-header"><h5 class="card-title">Вземете на изплащане</h5></div>
+                        <div class="card-body">
+                            <label for="plans">Избери план:</label>
+                            <select name="mobile-plans" id="plans">
+                                <option value="noplan">Без план</option>
+                            </select>
+                            <label for="period">Период:</label>
+                            <select name="period" id="period">
+                                <option value="noplan">24 месеца</option>
+                            </select>
+                            <div>
+                                <a href="#" class="btn btn-success" style="margin: 20px;">Добави план</a>
+                            </div>
+                            <div>
+                                <span id="cost" style="font-weight:bold;">Цена на изплащане:</span>
+                            </div>
+                            <div>
+                                <a href="#" class="btn btn-success" style="margin: 20px;">Купи</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="p-2 bd-highlight">
-                    <span id="price" style="font-weight:bold;">Цена на устройството без план:  <span th:text="*{price}">$$$$</span> лв.
-                    </span>
+                <div class="col-sm-6">
+                    <div class="card text-white bg-dark mb-3 text-center">
+                        <div class="card-header">
+                            <h5 class="card-title">Вземи без план</h5></div>
+                        <div class="card-body">
+                            <div class="p-2 bd-highlight">
+                <span id="price" style="font-weight:bold;">Цена на устройството без план:  <span
+                        th:text="*{price}">$$$$</span> лв.</span>
+                                <div>
+                                    <a href="#" class="btn btn-success text-center" style="margin: 20px;">Купи</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

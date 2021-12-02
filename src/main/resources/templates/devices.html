@@ -11,9 +11,9 @@
 </header>
 <main role="main">
     <h1 class="text-center">Устройства</h1>
-                <div class="text-center" sec:authorize="hasRole('ADMIN')">
-                    <a th:href="@{/devices/add-device}" class="btn btn-success">Добави</a>
-                </div>
+    <div class="text-center" sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/devices/add-device}" class="btn btn-success">Добави</a>
+    </div>
     <div class="row" style="margin: 15px">
         <div class="card" style="width: auto;">
             <h1 class="text-center">Филтри:</h1>
@@ -79,14 +79,19 @@
 
             <th:block th:if="${devices.size()>0}">
                 <div class="device-list" th:each="device:${devices}" th:object="${device}">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" th:src="*{getFirstImageUrl()}" width="256" height="256" alt="Card image cap">
+                    <div class="card" style="width: 18rem; margin: 15px">
+                        <img class="card-img-top" th:src="*{getFirstImageUrl()}" width="256" height="256"
+                             alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title text-center" th:text="*{name}">Име на устройството</h5>
-                            <div class="card-text">Цена:<span th:text="*{price}"></span></div>
+                            <div class="card-text" style="font-weight: bold;">Цена: <span th:text="*{price}"></span>
+                            </div>
                         </div>
                         <div class="card-footer">
-                            <a th:href="@{/devices/{id}/device-page(id=*{id})}" class="btn btn-success">Детайли</a>
+                            <div class="btn-group">
+                                <a th:href="@{/devices/{id}/device-page(id=*{id})}" class="btn btn-success"
+                                   style="margin-right: 80px;">Детайли</a>
+                            </div>
                         </div>
                     </div>
                 </div>

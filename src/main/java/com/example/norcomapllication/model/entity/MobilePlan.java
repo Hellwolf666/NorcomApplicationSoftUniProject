@@ -3,21 +3,24 @@ package com.example.norcomapllication.model.entity;
 import com.example.norcomapllication.model.entity.enums.MobilePlanType;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
 @Table(name = "mobile_plans")
 public class MobilePlan extends BaseEntity {
     private String name;
-    public String mobilePlanType;
-    public String internet;
-    public String minutes;
-    public String sms;
-    public String internetEU;
-    public String minutesEU;
-    public String smsEU;
-    public Set<Service> services;
-    public Set<Order> orders;
+    private String mobilePlanType;
+    private String internet;
+    private String minutes;
+    private String sms;
+    private String internetEU;
+    private String minutesEU;
+    private String smsEU;
+    private BigDecimal price;
+    private Set<Service> services;
+    private Set<Order> orders;
+    private User user;
     public MobilePlan() {
     }
     @Column(nullable = false,unique = true)
@@ -93,6 +96,16 @@ public class MobilePlan extends BaseEntity {
         this.smsEU = smsEU;
         return this;
     }
+    @Column(nullable = false)
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public MobilePlan setPrice(BigDecimal price) {
+        this.price = price;
+        return this;
+    }
+
     @ManyToMany(mappedBy = "mobilePlans")
     public Set<Service> getServices() {
         return services;
@@ -109,6 +122,15 @@ public class MobilePlan extends BaseEntity {
 
     public MobilePlan setOrders(Set<Order> orders) {
         this.orders = orders;
+        return this;
+    }
+    @ManyToOne(fetch = FetchType.EAGER)
+    public User getUser() {
+        return user;
+    }
+
+    public MobilePlan setUser(User user) {
+        this.user = user;
         return this;
     }
 }

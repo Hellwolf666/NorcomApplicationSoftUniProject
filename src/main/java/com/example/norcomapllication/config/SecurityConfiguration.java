@@ -1,7 +1,7 @@
 package com.example.norcomapllication.config;
 
 import com.example.norcomapllication.service.DeviceService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.norcomapllication.service.MobilePlanService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
@@ -20,8 +20,8 @@ public class SecurityConfiguration extends GlobalMethodSecurityConfiguration {
   }
 
   @Bean
-  public NorcomMethodSecurityExpressionHandler createExpressionHandler(DeviceService deviceService) {
-    return new NorcomMethodSecurityExpressionHandler(deviceService);
+  public NorcomMethodSecurityExpressionHandler createExpressionHandler(DeviceService deviceService, MobilePlanService mobilePlanService) {
+    return new NorcomMethodSecurityExpressionHandler(deviceService, mobilePlanService);
   }
 }
 
