@@ -6,9 +6,11 @@ import com.example.norcomapllication.model.entity.enums.OperationSystemType;
 import com.example.norcomapllication.model.service.DeviceAddServiceModel;
 import com.example.norcomapllication.model.service.DeviceUpdateServiceModel;
 import com.example.norcomapllication.model.view.DeviceDetailsView;
+import com.example.norcomapllication.model.view.DeviceSummaryView;
 import com.example.norcomapllication.service.DeviceService;
 import com.example.norcomapllication.service.impl.NorcomUser;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
@@ -20,18 +22,31 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
+
 @Controller
 public class DeviceController {
     private final ModelMapper modelMapper;
+
     private final DeviceService deviceService;
 
     public DeviceController(ModelMapper modelMapper, DeviceService deviceService) {
         this.modelMapper = modelMapper;
         this.deviceService = deviceService;
     }
+//    @RequestMapping("/devices/all")
+//    public String viewDevicePage(Model model,@Param("keyword") String keyword) {
+//    List<DeviceSummaryView> devices = deviceService.getAllBySearch(keyword);
+//        model.addAttribute("devices",devices);
+//        model.addAttribute("keyword",keyword);
+//        return "devices";
+//    }
     @GetMapping("/devices/all")
-    public String allDevices(Model model) {
-        model.addAttribute("devices", deviceService.getAllDevices());
+    public String allDevices(Model model,@Param("keyword") String keyword) {
+//        model.addAttribute("devices",deviceService.getAllDevices());
+List<DeviceSummaryView> devices = deviceService.getAllBySearch(keyword);
+        model.addAttribute("devices",devices);
+        model.addAttribute("keyword",keyword);
         return "devices";
     }
 
@@ -109,4 +124,5 @@ public class DeviceController {
         DeviceAddServiceModel deviceAddServiceModel = deviceService.addDevice(deviceAddBindingModel,name);
         return "redirect:/devices/" +deviceAddServiceModel.getId()+"/device-page";
     }
+
 }

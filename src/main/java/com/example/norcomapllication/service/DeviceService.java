@@ -1,6 +1,7 @@
 package com.example.norcomapllication.service;
 
 import com.example.norcomapllication.model.binding.DeviceAddBindingModel;
+import com.example.norcomapllication.model.entity.Device;
 import com.example.norcomapllication.model.service.DeviceAddServiceModel;
 import com.example.norcomapllication.model.service.DeviceUpdateServiceModel;
 import com.example.norcomapllication.model.view.DeviceDetailsView;
@@ -22,4 +23,6 @@ public interface DeviceService {
 
     DeviceAddServiceModel addDevice(DeviceAddBindingModel deviceAddBindingModel, String userIdentifier);
     void initDevices();
+
+    List<DeviceSummaryView> getAllBySearch(String keyword);
 }

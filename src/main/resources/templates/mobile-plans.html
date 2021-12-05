@@ -13,11 +13,11 @@
         <div class="d-flex flex-row" style="margin-right: 50px">
             <div id="carouselFor4gPlans" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
-                    <li th:each="mb:${plans4G}" data-target="#carouselFor4gPlans" th:data-slide-to="${mb.id}" th:classappend="${mb.id == 1} ? 'carousel-item active' : 'carousel-item'"></li>
+                    <li th:each="mb, i:${plans4G}" data-target="#carouselFor4gPlans" th:attr="data-slide-to=${i.index}" th:classappend="${i.first}? 'active' : ''"></li>
                 </ol>
                 <div class="carousel-inner">
-                    <form th:each="mb:${plans4G}" th:object="${mb}">
-                        <div th:classappend="${mb.id == 1} ? 'carousel-item active' : 'carousel-item'">
+                    <form th:each="mb,i:${plans4G}" th:object="${mb}">
+                        <div th:classappend="${i.first}? 'carousel-item active' : 'carousel-item'">
                             <img class="rounded" th:src="@{/images/4G.png}" alt="Second plan picture">
                             <div class="card text-white bg-dark mb-0" style="width: 35rem;">
                                 <div class="card-body text-center 4G" id="4G">
@@ -103,11 +103,11 @@
         <div class="d-flex flex-row">
             <div id="carouselFor5gPlans" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
-                    <li th:each="mb:${plans5G}" data-target="#carouselFor5gPlans" th:data-slide-to="${mb.id}" th:classappend="${mb.mobilePlanType == '5G'} ? 'carousel-item active' : 'carousel-item'"></li>
+                    <li th:each="mb,i:${plans5G}" data-target="#carouselFor5gPlans" th:attr="data-slide-to=${i.index}" th:classappend="${i.first}? 'active' : ''"></li>
                 </ol>
                 <div class="carousel-inner">
-                    <form th:each="mb:${plans5G}" th:object="${mb}">
-                        <div th:classappend="*{id == 2} ? 'carousel-item active' : 'carousel-item'">
+                    <form th:each="mb,i:${plans5G}" th:object="${mb}">
+                        <div th:classappend="${i.first}? 'carousel-item active' : 'carousel-item'">
                             <img class="rounded" th:src="@{/images/5G.png}" alt="Second plan picture">
                             <div class="card text-white bg-dark mb-0">
                                 <div class="card-body text-center 5G" id="5G">
