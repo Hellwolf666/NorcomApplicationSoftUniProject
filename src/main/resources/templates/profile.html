@@ -10,7 +10,7 @@
 <main role="main">
     <div class="container" style="margin-top: 25px; margin-bottom: 25px;">
         <div class="main-body">
-            <form th:method="get" th:action="@{/profile}" th:object="${user}">
+            <form th:method="get" th:action="@{/users/profile}" th:object="${user}">
                 <div class="row gutters-sm">
                     <div class="col-md-3 mb-2">
                         <div class="d-flex flex-column align-items-center text-center">
@@ -53,8 +53,8 @@
                                 </div>
                                 <div class="row" style="margin-top: 50px">
                                     <div class="col-sm-3">
-                                        <button type="button" class="btn btn-info"><a
-                                            href="/users/profile/edit-profile" style="color: #fff;">Редактирай</a></button>
+                                        <button type="button" class="btn btn-info">
+                                            <a th:href="@{/users/profile/{id}/edit-profile(id=*{id})}" style="color: #fff;">Редактирай</a></button>
                                     </div>
                                 </div>
                             </div>

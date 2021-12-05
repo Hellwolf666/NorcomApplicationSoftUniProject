@@ -1,7 +1,13 @@
+html {
+    height: 100%;
+}
+
 body {
     background-image: url("../images/background1.jpg");
     background-size: cover;
     background-repeat: no-repeat;
+    min-height: 100%;
+    flex-direction: column;
 }
 
 .navbar ul.navbar-nav a:hover {
@@ -19,8 +25,12 @@ color: #04C8D8 !important;
 main {
     margin: 25px;
 }
-#footer {
-    position: relative;
+.footer {
     bottom: 0;
-    width: 100%;
+    width: 100% ;
+    /* Set the fixed height of the footer here */
+    height: auto;
+    margin-top: auto;
 }
+
+

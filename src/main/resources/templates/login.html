@@ -48,15 +48,15 @@
 
                     <div class="card-footer">
                         <div class="d-flex justify-content-center">
-                            <a href="/users/register">Нямате акаунт направете си сега?</a>
+                            <a th:href="@{/users/register}">Нямате акаунт направете си сега?</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
-        <div th:replace="fragments/commons::footer" class="footer" id="footer">
-    </div>
+<div th:replace="fragments/commons::footer">
+</div>
 </body>
 
 </html>

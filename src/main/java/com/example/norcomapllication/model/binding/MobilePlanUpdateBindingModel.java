@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 public class MobilePlanUpdateBindingModel {
     private Long id;
     private String name;
-    public String mobilePlanType;
+//    public String mobilePlanType;
     public String internet;
     public String minutes;
     public String sms;
@@ -15,6 +15,8 @@ public class MobilePlanUpdateBindingModel {
     public String minutesEU;
     public String smsEU;
     public BigDecimal price;
+    private String services;
+    private Integer servicesCount;
 
     public Long getId() {
         return id;
@@ -35,15 +37,15 @@ public class MobilePlanUpdateBindingModel {
         return this;
     }
 
-    @NotNull
-    public String getMobilePlanType() {
-        return mobilePlanType;
-    }
-
-    public MobilePlanUpdateBindingModel setMobilePlanType(String mobilePlanType) {
-        this.mobilePlanType = mobilePlanType;
-        return this;
-    }
+//    @NotNull
+//    public String getMobilePlanType() {
+//        return mobilePlanType;
+//    }
+//
+//    public MobilePlanUpdateBindingModel setMobilePlanType(String mobilePlanType) {
+//        this.mobilePlanType = mobilePlanType;
+//        return this;
+//    }
 
     @NotNull
     public String getInternet() {
@@ -114,5 +116,21 @@ public class MobilePlanUpdateBindingModel {
     public MobilePlanUpdateBindingModel setPrice(BigDecimal price) {
         this.price = price;
         return this;
+    }
+
+    public String getServices() {
+        return services;
+    }
+
+    public MobilePlanUpdateBindingModel setServices(String services) {
+        this.services = services; return this;
+    }
+
+    public Integer getServicesCount() {
+        return servicesCount;
+    }
+
+    public MobilePlanUpdateBindingModel setServicesCount(Integer servicesCount) {
+        this.servicesCount = servicesCount; return this;
     }
 }

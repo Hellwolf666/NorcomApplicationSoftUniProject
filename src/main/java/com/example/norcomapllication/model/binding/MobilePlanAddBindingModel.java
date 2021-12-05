@@ -1,7 +1,10 @@
 package com.example.norcomapllication.model.binding;
 
-import com.example.norcomapllication.model.entity.Service;
+import org.springframework.lang.Nullable;
 
+import javax.persistence.Column;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
@@ -18,7 +21,9 @@ public class MobilePlanAddBindingModel {
     private String minutesEU;
     private String smsEU;
     private BigDecimal price;
-    private Set<Service> services;
+    private String services;
+    private Integer servicesCount;
+
 
     public Long getId() {
         return id;
@@ -120,12 +125,22 @@ public class MobilePlanAddBindingModel {
         return this;
     }
 
-    public Set<Service> getServices() {
+    @Nullable
+    public String getServices() {
         return services;
     }
 
-    public MobilePlanAddBindingModel setServices(Set<Service> services) {
+    public MobilePlanAddBindingModel setServices(String services) {
         this.services = services; return this;
     }
+    @Min(value = 0)
+    @Max(value = 3)
+    public Integer getServicesCount() {
+        return servicesCount;
+    }
 
+    public MobilePlanAddBindingModel setServicesCount(Integer servicesCount) {
+
+        this.servicesCount = servicesCount; return this;
+    }
 }

@@ -1,8 +1,6 @@
 package com.example.norcomapllication.model.view;
 
 
-import com.example.norcomapllication.model.entity.Service;
-
 import java.math.BigDecimal;
 import java.util.Set;
 
@@ -18,7 +16,9 @@ public class MobilePlanDetailsView {
     private String smsEU;
     private BigDecimal price;
     boolean canDelete;
-    private Set<Service> services;
+    private String services;
+    private Integer servicesCount;
+
 
     public Long getId() {
         return id;
@@ -110,11 +110,19 @@ public class MobilePlanDetailsView {
         this.canDelete = canDelete; return this;
     }
 
-    public Set<Service> getServices() {
+    public String getServices() {
         return services;
     }
 
-    public MobilePlanDetailsView setServices(Set<Service> services) {
+    public MobilePlanDetailsView setServices(String services) {
         this.services = services; return this;
+    }
+
+    public Integer getServicesCount() {
+        return servicesCount;
+    }
+
+    public MobilePlanDetailsView setServicesCount(Integer servicesCount) {
+        this.servicesCount = servicesCount; return this;
     }
 }

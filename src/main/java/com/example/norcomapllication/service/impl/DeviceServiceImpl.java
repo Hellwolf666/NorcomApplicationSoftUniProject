@@ -109,7 +109,7 @@ public class DeviceServiceImpl implements DeviceService {
 
 
     private boolean isAdmin(User user) {
-        return user.getRoles().stream().map(Role::getRole).allMatch(roleEnumClass -> roleEnumClass == RoleEnumClass.ADMIN);
+        return user.getRoles().stream().map(Role::getRole).anyMatch(roleEnumClass -> roleEnumClass == RoleEnumClass.ADMIN);
     }
 
     private DeviceSummaryView map(Device device) {

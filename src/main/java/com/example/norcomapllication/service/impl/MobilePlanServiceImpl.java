@@ -15,6 +15,7 @@ import com.example.norcomapllication.service.errorPackage.ObjectNotFoundExceptio
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,7 +34,7 @@ public class MobilePlanServiceImpl implements MobilePlanService {
 
     @Override
     public List<MobilePlanDetailsView> getAll4GTypePlans(String fourG) {
-        return this.mobilePlanRepository.findAll().stream().map(this::map).collect(Collectors.toList());
+        return this.mobilePlanRepository.getAllByMobilePlanType(fourG).stream().map(this::map).collect(Collectors.toList());
     }
 
     private MobilePlanDetailsView map(MobilePlan mobilePlan) {
@@ -42,7 +43,7 @@ public class MobilePlanServiceImpl implements MobilePlanService {
 
     @Override
     public List<MobilePlanDetailsView> getAll5GTypePlans(String fiveG) {
-        return this.mobilePlanRepository.findAll().stream().map(this::map).collect(Collectors.toList());
+        return this.mobilePlanRepository.getAllByMobilePlanType(fiveG).stream().map(this::map).collect(Collectors.toList());
     }
 
     @Override
@@ -53,21 +54,21 @@ public class MobilePlanServiceImpl implements MobilePlanService {
     @Override
     public MobilePlanAddServiceModel addMobilePlan(MobilePlanAddBindingModel mobilePlanAddBindingModel, String userIdentifier) {
         User user = this.userRepository.findByUsername(userIdentifier).orElseThrow();
-        MobilePlanAddServiceModel mobilePlanAddServiceModel = modelMapper.map(mobilePlanAddBindingModel,MobilePlanAddServiceModel.class);
-        MobilePlan newMobilePlan = modelMapper.map(mobilePlanAddServiceModel,MobilePlan.class);
+        MobilePlanAddServiceModel mobilePlanAddServiceModel = modelMapper.map(mobilePlanAddBindingModel, MobilePlanAddServiceModel.class);
+        MobilePlan newMobilePlan = modelMapper.map(mobilePlanAddServiceModel, MobilePlan.class);
         newMobilePlan.setUser(user);
         MobilePlan addPlan = mobilePlanRepository.save(newMobilePlan);
-        return modelMapper.map(addPlan,MobilePlanAddServiceModel.class);
+        return modelMapper.map(addPlan, MobilePlanAddServiceModel.class);
     }
 
     @Override
     public MobilePlanDetailsView findById(Long id, String user) {
-        return this.mobilePlanRepository.findById(id).map(mobilePlan -> mapMobilePlanDetailsView(user,mobilePlan)).get();
+        return this.mobilePlanRepository.findById(id).map(mobilePlan -> mapMobilePlanDetailsView(user, mobilePlan)).get();
     }
 
     @Override
     public void updateMobilePlan(MobilePlanServiceUpdate mobilePlanServiceUpdate) {
-        MobilePlan mobilePlan = mobilePlanRepository.findById(mobilePlanServiceUpdate.getId()).orElseThrow(()-> new ObjectNotFoundException("Mobile plan with id"+mobilePlanServiceUpdate.getId()+"not found!"));
+        MobilePlan mobilePlan = mobilePlanRepository.findById(mobilePlanServiceUpdate.getId()).orElseThrow(() -> new ObjectNotFoundException("Mobile plan with id" + mobilePlanServiceUpdate.getId() + "not found!"));
         mobilePlan.setPrice(mobilePlanServiceUpdate.getPrice())
                 .setName(mobilePlanServiceUpdate.getName())
                 .setInternet(mobilePlanServiceUpdate.getInternet())
@@ -75,20 +76,23 @@ public class MobilePlanServiceImpl implements MobilePlanService {
                 .setMinutes(mobilePlanServiceUpdate.getMinutes())
                 .setMinutesEU(mobilePlanServiceUpdate.getMinutesEU())
                 .setSms(mobilePlanServiceUpdate.getSms())
-                .setSmsEU(mobilePlanServiceUpdate.getSmsEU());
+                .setSmsEU(mobilePlanServiceUpdate.getSmsEU())
+                .setServices(mobilePlanServiceUpdate.getServices())
+                .setServicesCount(mobilePlanServiceUpdate.getServicesCount());
+
         mobilePlanRepository.save(mobilePlan);
     }
 
     private MobilePlanDetailsView mapMobilePlanDetailsView(String user, MobilePlan mobilePlan) {
-        MobilePlanDetailsView mobilePlanDetailsView = this.modelMapper.map(mobilePlan,MobilePlanDetailsView.class);
-        mobilePlanDetailsView.setCanDelete(isOwner(user,mobilePlan.getId()));
+        MobilePlanDetailsView mobilePlanDetailsView = this.modelMapper.map(mobilePlan, MobilePlanDetailsView.class);
+        mobilePlanDetailsView.setCanDelete(isOwner(user, mobilePlan.getId()));
         return mobilePlanDetailsView;
     }
 
     public boolean isOwner(String user, Long id) {
         Optional<MobilePlan> mobile = mobilePlanRepository.findById(id);
         Optional<User> byUsername = userRepository.findByUsername(user);
-        if(mobile.isEmpty() || byUsername.isEmpty()) {
+        if (mobile.isEmpty() || byUsername.isEmpty()) {
             return false;
         } else {
             MobilePlan mobilePlan = mobile.get();
@@ -96,7 +100,12 @@ public class MobilePlanServiceImpl implements MobilePlanService {
         }
     }
 
+    @Override
+    public Collection<MobilePlan> getAllPlans() {
+        return mobilePlanRepository.getAllBy();
+    }
+
     private boolean isAdmin(User user) {
-        return user.getRoles().stream().map(Role::getRole).anyMatch(roleEnumClass -> roleEnumClass== RoleEnumClass.ADMIN);
+        return user.getRoles().stream().map(Role::getRole).anyMatch(roleEnumClass -> roleEnumClass == RoleEnumClass.ADMIN);
     }
 }

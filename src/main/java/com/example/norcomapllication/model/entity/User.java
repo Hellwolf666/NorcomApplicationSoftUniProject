@@ -90,7 +90,7 @@ public class User extends BaseEntity {
 
     }
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     public Set<Order> getOrder() {
         return orders;
     }

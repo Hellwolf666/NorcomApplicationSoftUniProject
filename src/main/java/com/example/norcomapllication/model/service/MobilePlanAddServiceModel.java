@@ -13,6 +13,8 @@ public class MobilePlanAddServiceModel {
     private String minutesEU;
     private String smsEU;
     private BigDecimal price;
+    private String services;
+    private Integer servicesCount;
 
     public Long getId() {
         return id;
@@ -94,5 +96,21 @@ public class MobilePlanAddServiceModel {
 
     public MobilePlanAddServiceModel setPrice(BigDecimal price) {
         this.price = price;return this;
+    }
+
+    public String getServices() {
+        return services;
+    }
+
+    public MobilePlanAddServiceModel setServices(String services) {
+        this.services = services; return this;
+    }
+
+    public Integer getServicesCount() {
+        return servicesCount;
+    }
+
+    public MobilePlanAddServiceModel setServicesCount(Integer servicesCount) {
+        this.servicesCount = servicesCount; return this;
     }
 }

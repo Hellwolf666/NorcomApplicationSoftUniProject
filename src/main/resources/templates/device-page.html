@@ -57,7 +57,7 @@
                 <div class="btn-group" sec:authorize="hasRole('ADMIN')">
                     <a th:href="@{/devices/{id}/edit-device(id=*{id})}" class="btn btn-success">Редактирай</a>
                     <th:block th:if="*{canDelete}">
-                        <form th:action="@{/offers/{id}(id=*{id})}" th:method="delete">
+                        <form th:action="@{/devices/{id}(id=*{id})}" th:method="delete">
                             <input type="submit" class="btn btn-warning" value="Изтрий"/>
                         </form>
                     </th:block>

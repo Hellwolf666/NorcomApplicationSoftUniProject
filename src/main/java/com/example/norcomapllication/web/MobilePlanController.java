@@ -2,7 +2,6 @@ package com.example.norcomapllication.web;
 
 import com.example.norcomapllication.model.binding.MobilePlanAddBindingModel;
 import com.example.norcomapllication.model.binding.MobilePlanUpdateBindingModel;
-import com.example.norcomapllication.model.service.MobilePlanAddServiceModel;
 import com.example.norcomapllication.model.service.MobilePlanServiceUpdate;
 import com.example.norcomapllication.model.view.MobilePlanDetailsView;
 import com.example.norcomapllication.service.MobilePlanService;
@@ -18,6 +17,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Controller
 public class MobilePlanController {
@@ -38,26 +40,50 @@ public class MobilePlanController {
         model.addAttribute("plans5G",mobilePlanService.getAll5GTypePlans(fiveG));
         return "mobile-plans";
     }
+
+
     @PreAuthorize("isOwner(#id)")
     @DeleteMapping("/mobile-plans/{id}")
     public String deleteMobilePlan(@PathVariable Long id, Principal principal) {
+        if(mobilePlanService.isOwner(principal.getName(), id)) {
+            throw new RuntimeException();
+        }
         mobilePlanService.deleteMobilePlan(id);
         return "redirect:/mobile-plans/all";
     }
     @GetMapping("/mobile-plans/add")
     public String addMobilePlanPage(Model model) {
         if(!model.containsAttribute("mobilePlanAddBindingModel")) {
+            Map<String,String> plans = new LinkedHashMap<>();
+            plans.put("4G","4G");
+            plans.put("5G","5G");
             model.addAttribute("mobilePlanAddBindingModel", new MobilePlanAddBindingModel());
+            model.addAttribute("plans",plans);
         }
         return "add-mobile-plan";
     }
     @PostMapping("/mobile-plans/add")
-    public String addMobilePlan(@Valid MobilePlanAddBindingModel mobilePlanAddBindingModel, BindingResult bindingResult, RedirectAttributes redirectAttributes, NorcomUser user) {
+    public String addMobilePlan(@Valid MobilePlanAddBindingModel mobilePlanAddBindingModel,
+                                BindingResult bindingResult, RedirectAttributes redirectAttributes,
+                                @AuthenticationPrincipal NorcomUser user,
+                                @RequestParam(value = "services" ,required = false) String services) {
         if(bindingResult.hasErrors()) {
+            Map<String,String> plans = new LinkedHashMap<>();
+            plans.put("4G","4G");
+            plans.put("5G","5G");
             redirectAttributes.addFlashAttribute("mobilePlanAddBindingModel",mobilePlanAddBindingModel);
+            redirectAttributes.addFlashAttribute("plans",plans);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.mobilePlanAddBindingModel",bindingResult);
-            return "redirect:mobile-plan/add";
+            return "redirect:/mobile-plans/add";
         }
+        if(services == null) {
+            mobilePlanAddBindingModel.setServices("");
+            mobilePlanAddBindingModel.setServicesCount(0);
+        } else {
+            mobilePlanAddBindingModel.setServices(services);
+            mobilePlanAddBindingModel.setServicesCount(services.split(",").length);
+        }
+
         mobilePlanService.addMobilePlan(mobilePlanAddBindingModel,user.getUserIdentifier());
         return "redirect:/mobile-plans/all";
     }
@@ -69,17 +95,28 @@ public class MobilePlanController {
         return "edit-mobile-plan";
     }
 
-//    @GetMapping("/mobile-plans/{id}/edit-mobile-plan/errors")
-//    public String editOfferErrors(@PathVariable Long id, Model model) {
-//        return "edit-mobile-plan";
-//    }
+    @GetMapping("/mobile-plans/{id}/edit-mobile-plan/errors")
+    public String editOfferErrors(@PathVariable Long id, Model model) {
+        Map<String,String> plans = new LinkedHashMap<>();
+        plans.put("4G","4G");
+        plans.put("5G","5G");
+        model.addAttribute("plans",plans);
+        return "edit-mobile-plan";
+    }
 
     @PatchMapping("/mobile-plans/{id}/edit-mobile-plan")
-    public String editMobilePlan(@PathVariable Long id,@Valid MobilePlanUpdateBindingModel mobilePlanUpdateBindingModel,BindingResult bindingResult,RedirectAttributes redirectAttributes) {
+    public String editMobilePlan(@PathVariable Long id,@Valid MobilePlanUpdateBindingModel mobilePlanUpdateBindingModel,BindingResult bindingResult,RedirectAttributes redirectAttributes,@PathVariable(value = "services",required = false) String services) {
         if(bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("mobilePlanUpdateBindingModel",mobilePlanUpdateBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.mobilePlanUpdateBindingModel",mobilePlanUpdateBindingModel);
-            return "redirect:/mobile-plans" + id +"/edit-mobile-plan";
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.mobilePlanUpdateBindingModel",bindingResult);
+            return "redirect:/mobile-plans/" + id +"/edit-mobile-plan/errors";
+        }
+        if(services == null) {
+            mobilePlanUpdateBindingModel.setServices("");
+            mobilePlanUpdateBindingModel.setServicesCount(0);
+        } else {
+            mobilePlanUpdateBindingModel.setServices(services);
+            mobilePlanUpdateBindingModel.setServicesCount(services.split(",").length);
         }
         MobilePlanServiceUpdate mobilePlanServiceUpdate = modelMapper.map(mobilePlanUpdateBindingModel,MobilePlanServiceUpdate.class);
         mobilePlanServiceUpdate.setId(id);
