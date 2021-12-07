@@ -1,7 +1,5 @@
 package com.example.norcomapllication.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.HashSet;
