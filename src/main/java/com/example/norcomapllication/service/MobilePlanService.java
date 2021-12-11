@@ -1,7 +1,7 @@
 package com.example.norcomapllication.service;
 
 import com.example.norcomapllication.model.binding.MobilePlanAddBindingModel;
-import com.example.norcomapllication.model.entity.MobilePlan;
+import com.example.norcomapllication.model.entity.MobilePlanEntity;
 import com.example.norcomapllication.model.service.MobilePlanAddServiceModel;
 import com.example.norcomapllication.model.service.MobilePlanServiceUpdate;
 import com.example.norcomapllication.model.view.MobilePlanDetailsView;
@@ -24,5 +24,5 @@ public interface MobilePlanService {
 
     boolean isOwner(String name, Long id);
 
-    Collection<MobilePlan> getAllPlans();
+    Collection<MobilePlanEntity> getAllPlans();
 }

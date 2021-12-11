@@ -1,9 +1,10 @@
 package com.example.norcomapllication.model.service;
 
-import com.example.norcomapllication.model.entity.enums.MobilePlanType;
+import com.example.norcomapllication.model.entity.UserEntity;
 import com.example.norcomapllication.model.entity.enums.OperationSystemType;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 public class DeviceUpdateServiceModel {
     private Long id;
@@ -32,6 +33,7 @@ public class DeviceUpdateServiceModel {
     private String headphoneSlot;
     private String batteryCapacity;
     private boolean canDelete;
+    private Set<UserEntity> updatedBy;
 
     public Long getId() {
         return id;
@@ -265,5 +267,13 @@ public class DeviceUpdateServiceModel {
     public DeviceUpdateServiceModel setCanDelete(boolean canDelete) {
         this.canDelete = canDelete;
         return this;
+    }
+
+    public Set<UserEntity> getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(Set<UserEntity> updatedBy) {
+        this.updatedBy = updatedBy;
     }
 }

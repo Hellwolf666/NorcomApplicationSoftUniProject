@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "mobile_plans")
-public class MobilePlan extends BaseEntity {
+public class MobilePlanEntity extends BaseEntity {
     private String name;
     private String mobilePlanType;
     private String internet;
@@ -17,18 +17,18 @@ public class MobilePlan extends BaseEntity {
     private String minutesEU;
     private String smsEU;
     private BigDecimal price;
-    private Set<Order> orders;
-    private User user;
+    private Set<OrderEntity> orders;
+    private UserEntity user;
     private String services;
     private Integer servicesCount;
-    public MobilePlan() {
+    public MobilePlanEntity() {
     }
     @Column(nullable = false,unique = true)
     public String getName() {
         return name;
     }
 
-    public MobilePlan setName(String name) {
+    public MobilePlanEntity setName(String name) {
         this.name = name;
         return this;
     }
@@ -38,7 +38,7 @@ public class MobilePlan extends BaseEntity {
         return mobilePlanType;
     }
 
-    public MobilePlan setMobilePlanType(String mobilePlanType) {
+    public MobilePlanEntity setMobilePlanType(String mobilePlanType) {
         this.mobilePlanType = mobilePlanType;
         return this;
     }
@@ -47,7 +47,7 @@ public class MobilePlan extends BaseEntity {
         return internet;
     }
 
-    public MobilePlan setInternet(String internet) {
+    public MobilePlanEntity setInternet(String internet) {
         this.internet = internet;
         return this;
     }
@@ -56,7 +56,7 @@ public class MobilePlan extends BaseEntity {
         return minutes;
     }
 
-    public MobilePlan setMinutes(String minutes) {
+    public MobilePlanEntity setMinutes(String minutes) {
         this.minutes = minutes;
         return this;
     }
@@ -65,7 +65,7 @@ public class MobilePlan extends BaseEntity {
         return sms;
     }
 
-    public MobilePlan setSms(String sms) {
+    public MobilePlanEntity setSms(String sms) {
         this.sms = sms;
         return this;
     }
@@ -74,7 +74,7 @@ public class MobilePlan extends BaseEntity {
         return internetEU;
     }
 
-    public MobilePlan setInternetEU(String internetEU) {
+    public MobilePlanEntity setInternetEU(String internetEU) {
         this.internetEU = internetEU;
         return this;
     }
@@ -83,7 +83,7 @@ public class MobilePlan extends BaseEntity {
         return minutesEU;
     }
 
-    public MobilePlan setMinutesEU(String minutesEU) {
+    public MobilePlanEntity setMinutesEU(String minutesEU) {
         this.minutesEU = minutesEU;
         return this;
     }
@@ -92,7 +92,7 @@ public class MobilePlan extends BaseEntity {
         return smsEU;
     }
 
-    public MobilePlan setSmsEU(String smsEU) {
+    public MobilePlanEntity setSmsEU(String smsEU) {
         this.smsEU = smsEU;
         return this;
     }
@@ -101,26 +101,26 @@ public class MobilePlan extends BaseEntity {
         return price;
     }
 
-    public MobilePlan setPrice(BigDecimal price) {
+    public MobilePlanEntity setPrice(BigDecimal price) {
         this.price = price;
         return this;
     }
 
     @OneToMany(mappedBy = "mobilePlan")
-    public Set<Order> getOrders() {
+    public Set<OrderEntity> getOrders() {
         return orders;
     }
 
-    public MobilePlan setOrders(Set<Order> orders) {
+    public MobilePlanEntity setOrders(Set<OrderEntity> orders) {
         this.orders = orders;
         return this;
     }
     @ManyToOne(fetch = FetchType.EAGER)
-    public User getUser() {
+    public UserEntity getUser() {
         return user;
     }
 
-    public MobilePlan setUser(User user) {
+    public MobilePlanEntity setUser(UserEntity user) {
         this.user = user;
         return this;
     }
@@ -129,7 +129,7 @@ public class MobilePlan extends BaseEntity {
         return services;
     }
 
-    public MobilePlan setServices(String services) {
+    public MobilePlanEntity setServices(String services) {
         this.services = services; return this;
     }
     @Column(name = "service_count")
@@ -137,7 +137,7 @@ public class MobilePlan extends BaseEntity {
         return servicesCount;
     }
 
-    public MobilePlan setServicesCount(Integer servicesCount) {
+    public MobilePlanEntity setServicesCount(Integer servicesCount) {
         this.servicesCount = servicesCount; return this;
     }
 

@@ -1,12 +1,7 @@
 package com.example.norcomapllication.model.view;
 
-import com.example.norcomapllication.model.entity.Device;
-import com.example.norcomapllication.model.entity.enums.MobilePlanType;
 import com.example.norcomapllication.model.entity.enums.OperationSystemType;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.math.BigDecimal;
 
 public class DeviceSummaryView {

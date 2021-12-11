@@ -8,6 +8,7 @@ class NorcomApllicationApplicationTests {
 
     @Test
     void contextLoads() {
+        NorcomApllicationApplicationTests norcomApllicationApplicationTests = new NorcomApllicationApplicationTests();
     }
 
 }

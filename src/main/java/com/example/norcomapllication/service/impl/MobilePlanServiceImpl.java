@@ -1,9 +1,9 @@
 package com.example.norcomapllication.service.impl;
 
 import com.example.norcomapllication.model.binding.MobilePlanAddBindingModel;
-import com.example.norcomapllication.model.entity.MobilePlan;
-import com.example.norcomapllication.model.entity.Role;
-import com.example.norcomapllication.model.entity.User;
+import com.example.norcomapllication.model.entity.MobilePlanEntity;
+import com.example.norcomapllication.model.entity.RoleEntity;
+import com.example.norcomapllication.model.entity.UserEntity;
 import com.example.norcomapllication.model.entity.enums.RoleEnumClass;
 import com.example.norcomapllication.model.service.MobilePlanAddServiceModel;
 import com.example.norcomapllication.model.service.MobilePlanServiceUpdate;
@@ -37,7 +37,7 @@ public class MobilePlanServiceImpl implements MobilePlanService {
         return this.mobilePlanRepository.getAllByMobilePlanType(fourG).stream().map(this::map).collect(Collectors.toList());
     }
 
-    private MobilePlanDetailsView map(MobilePlan mobilePlan) {
+    private MobilePlanDetailsView map(MobilePlanEntity mobilePlan) {
         return this.modelMapper.map(mobilePlan, MobilePlanDetailsView.class);
     }
 
@@ -53,11 +53,11 @@ public class MobilePlanServiceImpl implements MobilePlanService {
 
     @Override
     public MobilePlanAddServiceModel addMobilePlan(MobilePlanAddBindingModel mobilePlanAddBindingModel, String userIdentifier) {
-        User user = this.userRepository.findByUsername(userIdentifier).orElseThrow();
+        UserEntity user = this.userRepository.findByUsername(userIdentifier).orElseThrow();
         MobilePlanAddServiceModel mobilePlanAddServiceModel = modelMapper.map(mobilePlanAddBindingModel, MobilePlanAddServiceModel.class);
-        MobilePlan newMobilePlan = modelMapper.map(mobilePlanAddServiceModel, MobilePlan.class);
+        MobilePlanEntity newMobilePlan = modelMapper.map(mobilePlanAddServiceModel, MobilePlanEntity.class);
         newMobilePlan.setUser(user);
-        MobilePlan addPlan = mobilePlanRepository.save(newMobilePlan);
+        MobilePlanEntity addPlan = mobilePlanRepository.save(newMobilePlan);
         return modelMapper.map(addPlan, MobilePlanAddServiceModel.class);
     }
 
@@ -68,7 +68,7 @@ public class MobilePlanServiceImpl implements MobilePlanService {
 
     @Override
     public void updateMobilePlan(MobilePlanServiceUpdate mobilePlanServiceUpdate) {
-        MobilePlan mobilePlan = mobilePlanRepository.findById(mobilePlanServiceUpdate.getId()).orElseThrow(() -> new ObjectNotFoundException("Mobile plan with id" + mobilePlanServiceUpdate.getId() + "not found!"));
+        MobilePlanEntity mobilePlan = mobilePlanRepository.findById(mobilePlanServiceUpdate.getId()).orElseThrow(() -> new ObjectNotFoundException("Mobile plan with id" + mobilePlanServiceUpdate.getId() + "not found!"));
         mobilePlan.setPrice(mobilePlanServiceUpdate.getPrice())
                 .setName(mobilePlanServiceUpdate.getName())
                 .setInternet(mobilePlanServiceUpdate.getInternet())
@@ -83,29 +83,29 @@ public class MobilePlanServiceImpl implements MobilePlanService {
         mobilePlanRepository.save(mobilePlan);
     }
 
-    private MobilePlanDetailsView mapMobilePlanDetailsView(String user, MobilePlan mobilePlan) {
+    private MobilePlanDetailsView mapMobilePlanDetailsView(String user, MobilePlanEntity mobilePlan) {
         MobilePlanDetailsView mobilePlanDetailsView = this.modelMapper.map(mobilePlan, MobilePlanDetailsView.class);
         mobilePlanDetailsView.setCanDelete(isOwner(user, mobilePlan.getId()));
         return mobilePlanDetailsView;
     }
 
     public boolean isOwner(String user, Long id) {
-        Optional<MobilePlan> mobile = mobilePlanRepository.findById(id);
-        Optional<User> byUsername = userRepository.findByUsername(user);
+        Optional<MobilePlanEntity> mobile = mobilePlanRepository.findById(id);
+        Optional<UserEntity> byUsername = userRepository.findByUsername(user);
         if (mobile.isEmpty() || byUsername.isEmpty()) {
             return false;
         } else {
-            MobilePlan mobilePlan = mobile.get();
+            MobilePlanEntity mobilePlan = mobile.get();
             return isAdmin(byUsername.get()) || mobilePlan.getUser().getUsername().equals(user);
         }
     }
 
     @Override
-    public Collection<MobilePlan> getAllPlans() {
+    public Collection<MobilePlanEntity> getAllPlans() {
         return mobilePlanRepository.getAllBy();
     }
 
-    private boolean isAdmin(User user) {
-        return user.getRoles().stream().map(Role::getRole).anyMatch(roleEnumClass -> roleEnumClass == RoleEnumClass.ADMIN);
+    private boolean isAdmin(UserEntity user) {
+        return user.getRoles().stream().map(RoleEntity::getRole).anyMatch(roleEnumClass -> roleEnumClass == RoleEnumClass.ADMIN);
     }
 }

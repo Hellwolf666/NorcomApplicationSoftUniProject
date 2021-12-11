@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "roles")
-public class Role {
+public class RoleEntity {
     private Long id;
     private RoleEnumClass role;
 
@@ -16,7 +16,7 @@ public class Role {
         return id;
     }
 
-    public Role setId(Long id) {
+    public RoleEntity setId(Long id) {
         this.id = id;
         return this;
     }
@@ -26,7 +26,7 @@ public class Role {
         return role;
     }
 
-    public Role setRole(RoleEnumClass role) {
+    public RoleEntity setRole(RoleEnumClass role) {
         this.role = role;
         return this;
     }

@@ -7,19 +7,19 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity {
+public class UserEntity extends BaseEntity {
     public String fullName;
     public String address;
     public String email;
     public String gender;
     public String username;
     public String password;
-    public Set<Order> orders;
-    private Set<Role> roles = new HashSet<>();
-    private Set<Device> devices;
-    private Set<MobilePlan> mobilePlans;
+    public Set<OrderEntity> orders;
+    private Set<RoleEntity> roles = new HashSet<>();
+    private Set<DeviceEntity> devices;
+    private Set<MobilePlanEntity> mobilePlans;
 
-    public User() {
+    public UserEntity() {
     }
 
     @Column(unique = true, nullable = false)
@@ -27,7 +27,7 @@ public class User extends BaseEntity {
         return fullName;
     }
 
-    public User setFullName(String fullName) {
+    public UserEntity setFullName(String fullName) {
         this.fullName = fullName;
         return this;
     }
@@ -38,7 +38,7 @@ public class User extends BaseEntity {
         return address;
     }
 
-    public User setAddress(String address) {
+    public UserEntity setAddress(String address) {
         this.address = address;
         return this;
 
@@ -49,7 +49,7 @@ public class User extends BaseEntity {
         return email;
     }
 
-    public User setEmail(String email) {
+    public UserEntity setEmail(String email) {
         this.email = email;
         return this;
 
@@ -60,7 +60,7 @@ public class User extends BaseEntity {
         return gender;
     }
 
-    public User setGender(String gender) {
+    public UserEntity setGender(String gender) {
         this.gender = gender;
         return this;
 
@@ -71,7 +71,7 @@ public class User extends BaseEntity {
         return username;
     }
 
-    public User setUsername(String username) {
+    public UserEntity setUsername(String username) {
         this.username = username;
         return this;
 
@@ -82,51 +82,51 @@ public class User extends BaseEntity {
         return password;
     }
 
-    public User setPassword(String password) {
+    public UserEntity setPassword(String password) {
         this.password = password;
         return this;
 
     }
 
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
-    public Set<Order> getOrder() {
+    public Set<OrderEntity> getOrder() {
         return orders;
     }
 
-    public User setOrder(Set<Order> orders) {
+    public UserEntity setOrder(Set<OrderEntity> orders) {
         this.orders = orders;
         return this;
 
     }
 
     @ManyToMany(fetch = FetchType.EAGER)
-    public Set<Role> getRoles() {
+    public Set<RoleEntity> getRoles() {
         return roles;
     }
 
-    public User setRoles(Set<Role> roles) {
+    public UserEntity setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
         return this;
 
     }
 
     @OneToMany
-    public Set<Device> getDevices() {
+    public Set<DeviceEntity> getDevices() {
         return devices;
     }
 
-    public User setDevices(Set<Device> devices) {
+    public UserEntity setDevices(Set<DeviceEntity> devices) {
         this.devices = devices;
         return this;
 
     }
 
     @OneToMany
-    public Set<MobilePlan> getMobilePlans() {
+    public Set<MobilePlanEntity> getMobilePlans() {
         return mobilePlans;
     }
 
-    public void setMobilePlans(Set<MobilePlan> mobilePlans) {
+    public void setMobilePlans(Set<MobilePlanEntity> mobilePlans) {
         this.mobilePlans = mobilePlans;
     }
 }

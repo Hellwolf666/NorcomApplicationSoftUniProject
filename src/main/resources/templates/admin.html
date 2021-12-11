@@ -22,8 +22,8 @@
                 <thead>
                 <tr>
                     <th scope="col">Име и фамилия</th>
+                    <th scope="col">Потребилтеско име</th>
                     <th scope="col">Роли</th>
-                    <th scope="col"></th>
                     <th scope="col">Админ->Потребител</th>
                     <th scope="col">Потребител->Админ</th>
                     <th scope="col">Изтрий потребител</th>
@@ -40,17 +40,17 @@
                     </td>
 
                     <td>
-                        <form th:action="@{/admin/{id}/demote-admin(id = *{id})}" th:method="PATCH" class="m-1">
+                        <form th:action="@{/admin/{id}/demote-admin(id=*{id})}" th:method="PATCH" class="m-1">
                             <input type="submit" class="btn btn-warning" value="Make User"/>
                         </form>
                     </td>
                     <td>
-                        <form th:action="@{/admin/{id}/add-admin(id = *{id})}" th:method="PATCH" class="m-1">
+                        <form th:action="@{/admin/{id}/add-admin(id=*{id})}" th:method="PATCH" class="m-1">
                             <input type="submit" class="btn btn-warning" value="Make Admin"/>
                         </form>
                     </td>
                     <td>
-                        <form th:action="@{/admin/{id}(id = *{id})}" th:method="DELETE" class="m-1">
+                        <form th:action="@{/admin/{id}(id=*{id})}" th:method="DELETE" class="m-1">
                             <input type="submit" class="btn btn-danger" value="Delete"/>
                         </form>
                     </td>
@@ -60,7 +60,8 @@
         </div>
     </div>
 </main>
-<footer th:replace="fragments/commons::footer"></footer>
+<div th:replace="fragments/commons::footer" class="footer" id="footer">
+</div>
 
 </body>
 

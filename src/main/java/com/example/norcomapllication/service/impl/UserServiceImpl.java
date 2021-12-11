@@ -1,7 +1,7 @@
 package com.example.norcomapllication.service.impl;
 
-import com.example.norcomapllication.model.entity.Role;
-import com.example.norcomapllication.model.entity.User;
+import com.example.norcomapllication.model.entity.RoleEntity;
+import com.example.norcomapllication.model.entity.UserEntity;
 import com.example.norcomapllication.model.entity.enums.RoleEnumClass;
 import com.example.norcomapllication.model.service.ProfileUpdateServiceModel;
 import com.example.norcomapllication.model.service.UserRegisterServiceModel;
@@ -15,12 +15,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -53,8 +53,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findByUsername(String username) {
-        return this.userRepository.findByUsername(username);
+    public UserEntity findByUsername(String username) throws UsernameNotFoundException {
+        return this.userRepository.findByUsername(username).orElseThrow(()-> new UsernameNotFoundException("User with this username: " + username+" was not found!" ));
     }
 
 //    @Override
@@ -65,11 +65,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateProfile(ProfileUpdateServiceModel profileUpdateServiceModel) {
-        User user = userRepository.findById(profileUpdateServiceModel.getId()).orElseThrow(() -> new ObjectNotFoundException("User with id" + profileUpdateServiceModel.getId() + "not found!"));
+        UserEntity user = userRepository.findById(profileUpdateServiceModel.getId()).orElseThrow(() -> new ObjectNotFoundException("User with id" + profileUpdateServiceModel.getId() + "not found!"));
         user.setUsername(profileUpdateServiceModel.getUsername())
                 .setAddress(profileUpdateServiceModel.getAddress())
                 .setEmail(profileUpdateServiceModel.getEmail())
-                .setUsername(profileUpdateServiceModel.getUsername())
                 .setGender(profileUpdateServiceModel.getGender());
         userRepository.save(user);
     }
@@ -88,8 +87,9 @@ public class UserServiceImpl implements UserService {
     public void promoteToAdmin(Long id) {
         userRepository.findById(id)
                 .ifPresent(user -> {
-                    user.getRoles().remove(roleRepository.findByRole(RoleEnumClass.USER));
-                    user.getRoles().add(roleRepository.findByRole(RoleEnumClass.ADMIN));
+                    Set<RoleEntity> roles = new HashSet<>();
+                    roles.add(roleRepository.findByRole(RoleEnumClass.ADMIN));
+                    user.setRoles(roles);
                     userRepository.save(user);
                 });
 
@@ -97,21 +97,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void demoteAdmin(Long id) {
-        User user= userRepository.getById(id);
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleRepository.findByRole(RoleEnumClass.USER));
-        roles.remove(roleRepository.findByRole(RoleEnumClass.ADMIN));
-        user.setRoles(roles);
-        userRepository.save(user);
+        userRepository.findById(id)
+                .ifPresent(user -> {
+                    Set<RoleEntity> roles = new HashSet<>();
+                    roles.add(roleRepository.findByRole(RoleEnumClass.USER));
+                    user.setRoles(roles);
+                    userRepository.save(user);
+                });
     }
 
 
     private void initializeRoles() {
         if (roleRepository.count() == 0) {
-            Role admin = new Role();
+            RoleEntity admin = new RoleEntity();
             admin.setRole(RoleEnumClass.ADMIN);
 
-            Role user = new Role();
+            RoleEntity user = new RoleEntity();
             user.setRole(RoleEnumClass.USER);
 
             roleRepository.saveAll(Set.of(admin, user));
@@ -121,10 +122,10 @@ public class UserServiceImpl implements UserService {
     private void initializeUsers() {
         if (userRepository.count() == 0) {
 
-            Role adminRole = roleRepository.findByRole(RoleEnumClass.ADMIN);
-            Role userRole = roleRepository.findByRole(RoleEnumClass.USER);
+            RoleEntity adminRole = roleRepository.findByRole(RoleEnumClass.ADMIN);
+            RoleEntity userRole = roleRepository.findByRole(RoleEnumClass.USER);
 
-            User admin = new User();
+            UserEntity admin = new UserEntity();
             admin.setFullName("Admin Adminov");
             admin.setUsername("admin");
             admin.setPassword(passwordEncoder.encode("admin4o"));
@@ -134,7 +135,7 @@ public class UserServiceImpl implements UserService {
             admin.setRoles(Set.of(adminRole));
             userRepository.save(admin);
 
-            User user = new User();
+            UserEntity user = new UserEntity();
             user.setFullName("Troyan Userov");
             user.setUsername("troyan");
             user.setPassword(passwordEncoder.encode("troy4o"));
@@ -149,8 +150,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void registerAndLoginUser(UserRegisterServiceModel userRegisterServiceModel) {
-        Role role = roleRepository.findByRole(RoleEnumClass.USER);
-        User newUser = new User();
+        RoleEntity role = roleRepository.findByRole(RoleEnumClass.USER);
+        UserEntity newUser = new UserEntity();
         newUser.setFullName(userRegisterServiceModel.getFullName())
                 .setAddress(userRegisterServiceModel.getAddress())
                 .setEmail(userRegisterServiceModel.getEmail())

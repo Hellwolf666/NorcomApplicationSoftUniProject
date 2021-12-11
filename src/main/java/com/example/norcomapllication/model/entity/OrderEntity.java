@@ -4,18 +4,18 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "orders")
-public class Order  extends BaseEntity{
-    public User user;
+public class OrderEntity extends BaseEntity{
+    public UserEntity user;
     public String phoneNumber;
-    public Device device;
-    public MobilePlan mobilePlan;
+    public DeviceEntity device;
+    public MobilePlanEntity mobilePlan;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    public User getUser() {
+    public UserEntity getUser() {
         return user;
     }
 
-    public Order setUser(User user) {
+    public OrderEntity setUser(UserEntity user) {
         this.user = user;
         return this;
     }
@@ -24,28 +24,28 @@ public class Order  extends BaseEntity{
         return phoneNumber;
     }
 
-    public Order setPhoneNumber(String phoneNumber) {
+    public OrderEntity setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
 
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    public Device getDevice() {
+    public DeviceEntity getDevice() {
         return device;
     }
 
-    public Order setDevice(Device device) {
+    public OrderEntity setDevice(DeviceEntity device) {
         this.device = device;
         return this;
 
     }
     @ManyToOne(fetch = FetchType.EAGER)
-    public MobilePlan getMobilePlan() {
+    public MobilePlanEntity getMobilePlan() {
         return mobilePlan;
     }
 
-    public Order setMobilePlan(MobilePlan mobilePlan) {
+    public OrderEntity setMobilePlan(MobilePlanEntity mobilePlan) {
         this.mobilePlan = mobilePlan;
         return this;
 

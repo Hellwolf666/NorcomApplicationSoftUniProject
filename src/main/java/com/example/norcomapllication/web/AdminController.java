@@ -30,7 +30,7 @@ public class AdminController {
     @DeleteMapping("/admin/{id}")
     public String deleteUser(@PathVariable Long id) {
         userService.deleteUserById(id);
-        return "redirect:admin";
+        return "redirect:/admin";
     }
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PatchMapping("/admin/{id}/add-admin")

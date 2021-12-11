@@ -28,7 +28,7 @@ public class OwnerSecurityExpressionRoot extends SecurityExpressionRoot implemen
   public boolean isOwner(Long id) {
     String userName = currentUsername();
     if (userName != null) {
-      return deviceService.isOwner(userName, id) && mobilePlanService.isOwner(userName,id);
+      return deviceService.isOwner(userName, id) || mobilePlanService.isOwner(userName,id);
     }
 
     return false;

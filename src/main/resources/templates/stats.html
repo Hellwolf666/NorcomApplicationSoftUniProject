@@ -5,7 +5,7 @@
 
 </head>
 <body>
-<header th:replace="fragments/commons::nav"></header>
+<header th:replace="/fragments/commons::nav"></header>
 <main>
 
         <div class="col-xl-12">
@@ -34,6 +34,7 @@
             </table>
         </div>
 </main>
-<footer th:replace="fragments/commons::footer"></footer>
+<div th:replace="fragments/commons::footer" class="footer" id="footer">
+</div>
 </body>
 </html>

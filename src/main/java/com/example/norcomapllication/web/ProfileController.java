@@ -1,8 +1,7 @@
 package com.example.norcomapllication.web;
 
 import com.example.norcomapllication.model.binding.ProfileUpdateBindingModel;
-import com.example.norcomapllication.model.entity.User;
-import com.example.norcomapllication.model.service.MobilePlanServiceUpdate;
+import com.example.norcomapllication.model.entity.UserEntity;
 import com.example.norcomapllication.model.service.ProfileUpdateServiceModel;
 import com.example.norcomapllication.model.view.ProfileUserView;
 import com.example.norcomapllication.service.UserService;
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -68,21 +65,21 @@ public class ProfileController {
         return "redirect:/users/profile";
     }
 
-    private Optional<User> getCurrentUser() {
+    private UserEntity getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         return userService.findByUsername(username);
     }
 
     private void addProfileView(Model model) {
-        Optional<User> userEntity = getCurrentUser();
+        UserEntity userEntity = getCurrentUser();
         ProfileUserView user = new ProfileUserView();
-        user.setId(userEntity.get().getId());
-        user.setFullName(userEntity.get().getFullName());
-        user.setAddress(userEntity.get().getAddress());
-        user.setGender(userEntity.get().getGender());
-        user.setUsername(userEntity.get().getUsername());
-        user.setEmail(userEntity.get().getEmail());
+        user.setId(userEntity.getId());
+        user.setFullName(userEntity.getFullName());
+        user.setAddress(userEntity.getAddress());
+        user.setGender(userEntity.getGender());
+        user.setUsername(userEntity.getUsername());
+        user.setEmail(userEntity.getEmail());
         model.addAttribute("user", user);
     }
 }

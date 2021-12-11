@@ -1,6 +1,5 @@
 package com.example.norcomapllication.model.view;
 
-import com.example.norcomapllication.model.entity.enums.MobilePlanType;
 import com.example.norcomapllication.model.entity.enums.OperationSystemType;
 
 import java.math.BigDecimal;

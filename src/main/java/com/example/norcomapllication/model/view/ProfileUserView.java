@@ -1,8 +1,8 @@
 package com.example.norcomapllication.model.view;
 
-import com.example.norcomapllication.model.entity.Device;
-import com.example.norcomapllication.model.entity.Order;
-import com.example.norcomapllication.model.entity.Role;
+import com.example.norcomapllication.model.entity.DeviceEntity;
+import com.example.norcomapllication.model.entity.OrderEntity;
+import com.example.norcomapllication.model.entity.RoleEntity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,9 +15,9 @@ public class ProfileUserView {
     private String gender;
     private String username;
     private String password;
-    private Set<Order> orders;
-    private Set<Role> roles = new HashSet<>();
-    private Set<Device> devices;
+    private Set<OrderEntity> orders;
+    private Set<RoleEntity> roles = new HashSet<>();
+    private Set<DeviceEntity> devices;
 
     public ProfileUserView() {
     }
@@ -76,11 +76,11 @@ public class ProfileUserView {
         return this;
     }
 
-    public Set<Order> getOrders() {
+    public Set<OrderEntity> getOrders() {
         return orders;
     }
 
-    public ProfileUserView setOrders(Set<Order> orders) {
+    public ProfileUserView setOrders(Set<OrderEntity> orders) {
         this.orders = orders;
         return this;
     }
@@ -94,20 +94,20 @@ public class ProfileUserView {
         return this;
     }
 
-    public Set<Role> getRoles() {
+    public Set<RoleEntity> getRoles() {
         return roles;
     }
 
-    public ProfileUserView setRoles(Set<Role> roles) {
+    public ProfileUserView setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
         return this;
     }
 
-    public Set<Device> getDevices() {
+    public Set<DeviceEntity> getDevices() {
         return devices;
     }
 
-    public ProfileUserView setDevices(Set<Device> devices) {
+    public ProfileUserView setDevices(Set<DeviceEntity> devices) {
         this.devices = devices;
         return this;
     }

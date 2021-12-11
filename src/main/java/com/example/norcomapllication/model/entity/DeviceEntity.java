@@ -1,6 +1,5 @@
 package com.example.norcomapllication.model.entity;
 
-import com.example.norcomapllication.model.entity.enums.MobilePlanType;
 import com.example.norcomapllication.model.entity.enums.OperationSystemType;
 
 import javax.persistence.*;
@@ -9,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "devices")
-public class Device extends BaseEntity{
+public class DeviceEntity extends BaseEntity{
     private String firstImageUrl;
     private String secondImageUrl;
     private String thirdImageUrl;
@@ -34,18 +33,18 @@ public class Device extends BaseEntity{
     private String speaker;
     private String headphoneSlot;
     private String batteryCapacity;
-    private User user;
-    private Set<Order> orders;
+    private UserEntity user;
+    private Set<OrderEntity> orders;
 
 
-    public Device() {
+    public DeviceEntity() {
     }
     @Column(columnDefinition = "LONGTEXT")
     public String getFirstImageUrl() {
         return firstImageUrl;
     }
 
-    public Device setFirstImageUrl(String firstImageUrl) {
+    public DeviceEntity setFirstImageUrl(String firstImageUrl) {
         this.firstImageUrl = firstImageUrl;
         return this;
     }
@@ -54,7 +53,7 @@ public class Device extends BaseEntity{
         return secondImageUrl;
     }
 
-    public Device setSecondImageUrl(String secondImageUrl) {
+    public DeviceEntity setSecondImageUrl(String secondImageUrl) {
         this.secondImageUrl = secondImageUrl;
         return this;
     }
@@ -63,7 +62,7 @@ public class Device extends BaseEntity{
         return thirdImageUrl;
     }
 
-    public Device setThirdImageUrl(String thirdImageUrl) {
+    public DeviceEntity setThirdImageUrl(String thirdImageUrl) {
         this.thirdImageUrl = thirdImageUrl;
         return this;
     }
@@ -72,7 +71,7 @@ public class Device extends BaseEntity{
         return fourthImageUrl;
     }
 
-    public Device setFourthImageUrl(String fourthImageUrl) {
+    public DeviceEntity setFourthImageUrl(String fourthImageUrl) {
         this.fourthImageUrl = fourthImageUrl;
         return this;
     }
@@ -81,7 +80,7 @@ public class Device extends BaseEntity{
         return fifthImageUrl;
     }
 
-    public Device setFifthImageUrl(String fifthImageUrl) {
+    public DeviceEntity setFifthImageUrl(String fifthImageUrl) {
         this.fifthImageUrl = fifthImageUrl;
         return this;
     }
@@ -90,7 +89,7 @@ public class Device extends BaseEntity{
         return name;
     }
 
-    public Device setName(String name) {
+    public DeviceEntity setName(String name) {
         this.name = name;
         return this;
     }
@@ -99,7 +98,7 @@ public class Device extends BaseEntity{
         return price;
     }
 
-    public Device setPrice(BigDecimal price) {
+    public DeviceEntity setPrice(BigDecimal price) {
         this.price = price;
         return this;
     }
@@ -109,7 +108,7 @@ public class Device extends BaseEntity{
         return type;
     }
 
-    public Device setType(String type) {
+    public DeviceEntity setType(String type) {
         this.type = type;
         return this;
     }
@@ -118,7 +117,7 @@ public class Device extends BaseEntity{
         return operationSystem;
     }
 
-    public Device setOperationSystem(OperationSystemType operationSystem) {
+    public DeviceEntity setOperationSystem(OperationSystemType operationSystem) {
         this.operationSystem = operationSystem;
         return this;
     }
@@ -127,7 +126,7 @@ public class Device extends BaseEntity{
         return processor;
     }
 
-    public Device setProcessor(String processor) {
+    public DeviceEntity setProcessor(String processor) {
         this.processor = processor;
         return this;
     }
@@ -136,7 +135,7 @@ public class Device extends BaseEntity{
         return chipset;
     }
 
-    public Device setChipset(String chipset) {
+    public DeviceEntity setChipset(String chipset) {
         this.chipset = chipset;
         return this;
     }
@@ -145,7 +144,7 @@ public class Device extends BaseEntity{
         return sizeDevice;
     }
 
-    public Device setSizeDevice(String sizeDevice) {
+    public DeviceEntity setSizeDevice(String sizeDevice) {
         this.sizeDevice = sizeDevice;
         return this;
     }
@@ -154,7 +153,7 @@ public class Device extends BaseEntity{
         return weightDevice;
     }
 
-    public Device setWeightDevice(Long weightDevice) {
+    public DeviceEntity setWeightDevice(Long weightDevice) {
         this.weightDevice = weightDevice;
         return this;
     }
@@ -163,7 +162,7 @@ public class Device extends BaseEntity{
         return typeOfScreen;
     }
 
-    public Device setTypeOfScreen(String typeOfScreen) {
+    public DeviceEntity setTypeOfScreen(String typeOfScreen) {
         this.typeOfScreen = typeOfScreen;
         return this;
     }
@@ -172,7 +171,7 @@ public class Device extends BaseEntity{
         return sizeOfScreen;
     }
 
-    public Device setSizeOfScreen(BigDecimal sizeOfScreen) {
+    public DeviceEntity setSizeOfScreen(BigDecimal sizeOfScreen) {
         this.sizeOfScreen = sizeOfScreen;
         return this;
     }
@@ -181,7 +180,7 @@ public class Device extends BaseEntity{
         return resolutionOfScreen;
     }
 
-    public Device setResolutionOfScreen(String resolutionOfScreen) {
+    public DeviceEntity setResolutionOfScreen(String resolutionOfScreen) {
         this.resolutionOfScreen = resolutionOfScreen;
         return this;
     }
@@ -190,7 +189,7 @@ public class Device extends BaseEntity{
         return cardMemory;
     }
 
-    public Device setCardMemory(String cardMemory) {
+    public DeviceEntity setCardMemory(String cardMemory) {
         this.cardMemory = cardMemory;
         return this;
     }
@@ -199,7 +198,7 @@ public class Device extends BaseEntity{
         return deviceStorage;
     }
 
-    public Device setDeviceStorage(String deviceStorage) {
+    public DeviceEntity setDeviceStorage(String deviceStorage) {
         this.deviceStorage = deviceStorage;
         return this;
     }
@@ -208,7 +207,7 @@ public class Device extends BaseEntity{
         return deviceRamStorage;
     }
 
-    public Device setDeviceRamStorage(String deviceRamStorage) {
+    public DeviceEntity setDeviceRamStorage(String deviceRamStorage) {
         this.deviceRamStorage = deviceRamStorage;
         return this;
     }
@@ -217,7 +216,7 @@ public class Device extends BaseEntity{
         return backCamera;
     }
 
-    public Device setBackCamera(String backCamera) {
+    public DeviceEntity setBackCamera(String backCamera) {
         this.backCamera = backCamera;
         return this;
     }
@@ -226,7 +225,7 @@ public class Device extends BaseEntity{
         return frontCamera;
     }
 
-    public Device setFrontCamera(String frontCamera) {
+    public DeviceEntity setFrontCamera(String frontCamera) {
         this.frontCamera = frontCamera;
         return this;
     }
@@ -235,7 +234,7 @@ public class Device extends BaseEntity{
         return speaker;
     }
 
-    public Device setSpeaker(String speaker) {
+    public DeviceEntity setSpeaker(String speaker) {
         this.speaker = speaker;
         return this;
     }
@@ -244,7 +243,7 @@ public class Device extends BaseEntity{
         return headphoneSlot;
     }
 
-    public Device setHeadphoneSlot(String headphoneSlot) {
+    public DeviceEntity setHeadphoneSlot(String headphoneSlot) {
         this.headphoneSlot = headphoneSlot;
         return this;
     }
@@ -253,25 +252,25 @@ public class Device extends BaseEntity{
         return batteryCapacity;
     }
 
-    public Device setBatteryCapacity(String batteryCapacity) {
+    public DeviceEntity setBatteryCapacity(String batteryCapacity) {
         this.batteryCapacity = batteryCapacity;
         return this;
     }
     @ManyToOne(fetch = FetchType.EAGER)
-    public User getUser() {
+    public UserEntity getUser() {
         return user;
     }
 
-    public Device setUser(User user) {
+    public DeviceEntity setUser(UserEntity user) {
         this.user = user;
         return this;
     }
     @OneToMany(mappedBy = "device")
-    public Set<Order> getOrders() {
+    public Set<OrderEntity> getOrders() {
         return orders;
     }
 
-    public Device setOrders(Set<Order> orders) {
+    public DeviceEntity setOrders(Set<OrderEntity> orders) {
         this.orders = orders;
         return this;
     }

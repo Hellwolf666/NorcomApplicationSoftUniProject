@@ -1,9 +1,9 @@
 package com.example.norcomapllication.service.impl;
 
 import com.example.norcomapllication.model.binding.DeviceAddBindingModel;
-import com.example.norcomapllication.model.entity.Device;
-import com.example.norcomapllication.model.entity.Role;
-import com.example.norcomapllication.model.entity.User;
+import com.example.norcomapllication.model.entity.DeviceEntity;
+import com.example.norcomapllication.model.entity.RoleEntity;
+import com.example.norcomapllication.model.entity.UserEntity;
 import com.example.norcomapllication.model.entity.enums.OperationSystemType;
 import com.example.norcomapllication.model.entity.enums.RoleEnumClass;
 import com.example.norcomapllication.model.service.DeviceAddServiceModel;
@@ -45,19 +45,19 @@ public class DeviceServiceImpl implements DeviceService {
         return deviceRepository.findById(id).map(device -> mapDeviceDetailsView(name,device)).get();
     }
 
-    private DeviceDetailsView mapDeviceDetailsView(String name, Device device) {
+    private DeviceDetailsView mapDeviceDetailsView(String name, DeviceEntity device) {
         DeviceDetailsView deviceDetailsView = this.modelMapper.map(device,DeviceDetailsView.class);
         deviceDetailsView.setCanDelete(isOwner(name,device.getId()));
         return deviceDetailsView;
     }
 
     public boolean isOwner(String name, Long id) {
-        Optional<Device> deviceOptinal = deviceRepository.findById(id);
-        Optional<User> userOptional = userRepository.findById(id);
+        Optional<DeviceEntity> deviceOptinal = deviceRepository.findById(id);
+        Optional<UserEntity> userOptional = userRepository.findByUsername(name);
         if(deviceOptinal.isEmpty() || userOptional.isEmpty()) {
             return false;
         } else {
-            Device device = deviceOptinal.get();
+            DeviceEntity device = deviceOptinal.get();
             return isAdmin(userOptional.get()) || device.getUser().getUsername().equals(name);
         }
     }
@@ -69,7 +69,7 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public void updateOffer(DeviceUpdateServiceModel serviceModel) {
-        Device device=deviceRepository.findById(serviceModel.getId()).orElseThrow(()->new ObjectNotFoundException("Device with this id: "+serviceModel.getId()+"not found!"));
+        DeviceEntity device=deviceRepository.findById(serviceModel.getId()).orElseThrow(()->new ObjectNotFoundException("Device with this id: "+serviceModel.getId()+"not found!"));
         device.setFirstImageUrl(serviceModel.getFirstImageUrl())
                 .setSecondImageUrl(serviceModel.getSecondImageUrl())
                 .setThirdImageUrl(serviceModel.getThirdImageUrl())
@@ -99,21 +99,21 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public DeviceAddServiceModel addDevice(DeviceAddBindingModel deviceAddBindingModel, String userIdentifier) {
-        User user = userRepository.findByUsername(userIdentifier).orElseThrow();
+        UserEntity user = userRepository.findByUsername(userIdentifier).orElseThrow();
         DeviceAddServiceModel deviceAddServiceModel = modelMapper.map(deviceAddBindingModel,DeviceAddServiceModel.class);
-        Device newDevice = modelMapper.map(deviceAddServiceModel,Device.class);
+        DeviceEntity newDevice = modelMapper.map(deviceAddServiceModel, DeviceEntity.class);
         newDevice.setUser(user);
-        Device savedOffer = deviceRepository.save(newDevice);
+        DeviceEntity savedOffer = deviceRepository.save(newDevice);
         return modelMapper.map(savedOffer,DeviceAddServiceModel.class);
     }
 
 
 
-    private boolean isAdmin(User user) {
-        return user.getRoles().stream().map(Role::getRole).anyMatch(roleEnumClass -> roleEnumClass == RoleEnumClass.ADMIN);
+    private boolean isAdmin(UserEntity user) {
+        return user.getRoles().stream().map(RoleEntity::getRole).anyMatch(roleEnumClass -> roleEnumClass == RoleEnumClass.ADMIN);
     }
 
-    private DeviceSummaryView map(Device device) {
+    private DeviceSummaryView map(DeviceEntity device) {
 
         return this.modelMapper
                 .map(device, DeviceSummaryView.class);
@@ -122,7 +122,7 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     public void initDevices() {
         if(deviceRepository.count() == 0) {
-            Device samsung = new Device();
+            DeviceEntity samsung = new DeviceEntity();
             samsung.setFirstImageUrl("https://s13emagst.akamaized.net/products/34408/34407359/images/res_2b0fa73eba769c1da5c288f35c92dc01.jpg")
                     .setSecondImageUrl("https://i.guim.co.uk/img/media/460229e455cd38808a11b1d0ebe866fcfd5f06ae/373_437_4638_2783/master/4638.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=a738f3c6316aaa69b8ffffbd56933c78")
                     .setThirdImageUrl("https://images.samsung.com/bg/smartphones/galaxy-s21-ultra-5g/images/galaxy-s21-ultra-5g-share-image.jpg")
@@ -150,7 +150,7 @@ public class DeviceServiceImpl implements DeviceService {
                     .setSpeaker("Има")
                     .setHeadphoneSlot("няма")
                     .setBatteryCapacity("5000 mAh");
-            Device oneplus = new Device();
+            DeviceEntity oneplus = new DeviceEntity();
             oneplus.setFirstImageUrl("https://hicomm.bg/uploads/articles/202103/66374/600-mainimage-displeyat-na-oneplus-9-pro-e-nai-blizkoto-do-svrshenstvoto.jpg")
                     .setSecondImageUrl("https://cdn57.androidauthority.net/wp-content/uploads/2021/03/OnePlus-9-Pro-in-hand-angled.jpg")
                     .setThirdImageUrl("https://shop.izgradi.net/wp-content/uploads/2021/08/%D1%85%D0%B8%D0%B4%D1%80%D0%BE%D0%B3%D0%B5%D0%BB-%D0%BF%D1%80%D0%BE%D1%82%D0%B5%D0%BA%D1%82%D0%BE%D1%80-%D0%B7%D0%B0-oneplus-9-pro.jpg")
@@ -178,7 +178,7 @@ public class DeviceServiceImpl implements DeviceService {
                     .setSpeaker("Има")
                     .setHeadphoneSlot("няма")
                     .setBatteryCapacity("4500 mAh");
-            Device iPhone = new Device();
+            DeviceEntity iPhone = new DeviceEntity();
             iPhone.setFirstImageUrl("https://assets.swappie.com/swappie-product-iphone-13-pro-max-sierra-blue-back.png")
                     .setSecondImageUrl("https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-pro-gallery-1?wid=4056&hei=2400&fmt=jpeg&qlt=80&.v=1629956757000")
                     .setThirdImageUrl("https://www.xda-developers.com/files/2021/09/Apple-iPhone-13-Pro-Sierra-Blue-Hands-On-Image-1024x1024.jpg")
@@ -207,7 +207,7 @@ public class DeviceServiceImpl implements DeviceService {
                     .setSpeaker("Има")
                     .setHeadphoneSlot("няма")
                     .setBatteryCapacity("4352 mAh");
-            Device huawei = new Device();
+            DeviceEntity huawei = new DeviceEntity();
             huawei.setFirstImageUrl("https://s13emagst.akamaized.net/products/29336/29335294/images/res_1a380af9d1e8941b14410e0bc373a2f6.jpg")
                     .setSecondImageUrl("https://cdn.hum3d.com/wp-content/uploads/Huawei/337_Huawei_P40_Pro_Ice_White/Huawei_P40_Pro_Ice_White_1000_0006.jpg")
                     .setThirdImageUrl("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRozwSAraGN4YFxJVlXMv-mz5ZetJ8OtyeUoQ&usqp=CAU")
@@ -236,7 +236,7 @@ public class DeviceServiceImpl implements DeviceService {
                     .setSpeaker("Има")
                     .setHeadphoneSlot("няма")
                     .setBatteryCapacity("4200 mAh");
-            Device google = new Device();
+            DeviceEntity google = new DeviceEntity();
             google.setFirstImageUrl("https://lh3.googleusercontent.com/jPh-Y-sM_IznsQbOan7z3vEru2IxgxXp1MAw3nQby3b99Q2dDTfyeP3uYa0TuVAAD39SqLbEK1kMh3ikcjaijIgOmNyItAWiV6ut=e365-s0")
                     .setSecondImageUrl("https://lh3.googleusercontent.com/hkX-mL7we8QNFK7CaNLoi0Wf6j8wcGy4I1KB6Y-eMYF758n75iEAQ0wXHEi6NS4hPkhTPO92ABxCDvuJDBb_ZDad5EKFgc_a4YM")
                     .setThirdImageUrl("https://media.carphonewarehouse.com/is/image/cpw2/pixel-6-proWHITE8?$xl-retina$")
